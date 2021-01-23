@@ -127,7 +127,7 @@ public final class Functions
             transformFull(entity, world, scheduler, imageStore);
         }
         else {
-            scheduleEvent(scheduler, entity,
+            scheduler.scheduleEvent(entity,
                           createActivityAction(entity, world, imageStore),
                           entity.actionPeriod);
         }
@@ -147,7 +147,7 @@ public final class Functions
                                                          scheduler)
                 || !transformNotFull(entity, world, scheduler, imageStore))
         {
-            scheduleEvent(scheduler, entity,
+            scheduler.scheduleEvent(entity,
                           createActivityAction(entity, world, imageStore),
                           entity.actionPeriod);
         }
@@ -162,7 +162,7 @@ public final class Functions
         Point pos = entity.position;
 
         removeEntity(world, entity);
-        unscheduleAllEvents(scheduler, entity);
+        scheduler.unscheduleAllEvents(entity);
 
         Entity blob = createOreBlob(entity.id + BLOB_ID_SUFFIX, pos,
                                     entity.actionPeriod / BLOB_PERIOD_SCALE,
@@ -198,7 +198,7 @@ public final class Functions
             }
         }
 
-        scheduleEvent(scheduler, entity,
+        scheduler.scheduleEvent(entity,
                       createActivityAction(entity, world, imageStore),
                       nextPeriod);
     }
@@ -209,7 +209,7 @@ public final class Functions
             ImageStore imageStore,
             EventScheduler scheduler)
     {
-        unscheduleAllEvents(scheduler, entity);
+        scheduler.unscheduleAllEvents(entity);
         removeEntity(world, entity);
     }
 
@@ -230,7 +230,7 @@ public final class Functions
             scheduleActions(ore, scheduler, world, imageStore);
         }
 
-        scheduleEvent(scheduler, entity,
+        scheduler.scheduleEvent(entity,
                       createActivityAction(entity, world, imageStore),
                       entity.actionPeriod);
     }
@@ -243,49 +243,49 @@ public final class Functions
     {
         switch (entity.kind) {
             case MINER_FULL:
-                scheduleEvent(scheduler, entity,
+                scheduler.scheduleEvent(entity,
                               createActivityAction(entity, world, imageStore),
                               entity.actionPeriod);
-                scheduleEvent(scheduler, entity,
+                scheduler.scheduleEvent(entity,
                               createAnimationAction(entity, 0),
                               getAnimationPeriod(entity));
                 break;
 
             case MINER_NOT_FULL:
-                scheduleEvent(scheduler, entity,
+                scheduler.scheduleEvent(entity,
                               createActivityAction(entity, world, imageStore),
                               entity.actionPeriod);
-                scheduleEvent(scheduler, entity,
+                scheduler.scheduleEvent(entity,
                               createAnimationAction(entity, 0),
                               getAnimationPeriod(entity));
                 break;
 
             case ORE:
-                scheduleEvent(scheduler, entity,
+                scheduler.scheduleEvent(entity,
                               createActivityAction(entity, world, imageStore),
                               entity.actionPeriod);
                 break;
 
             case ORE_BLOB:
-                scheduleEvent(scheduler, entity,
+                scheduler.scheduleEvent(entity,
                               createActivityAction(entity, world, imageStore),
                               entity.actionPeriod);
-                scheduleEvent(scheduler, entity,
+                scheduler.scheduleEvent(entity,
                               createAnimationAction(entity, 0),
                               getAnimationPeriod(entity));
                 break;
 
             case QUAKE:
-                scheduleEvent(scheduler, entity,
+                scheduler.scheduleEvent(entity,
                               createActivityAction(entity, world, imageStore),
                               entity.actionPeriod);
-                scheduleEvent(scheduler, entity, createAnimationAction(entity,
+                scheduler.scheduleEvent(entity, createAnimationAction(entity,
                                                                        QUAKE_ANIMATION_REPEAT_COUNT),
                               getAnimationPeriod(entity));
                 break;
 
             case VEIN:
-                scheduleEvent(scheduler, entity,
+                scheduler.scheduleEvent(entity,
                               createActivityAction(entity, world, imageStore),
                               entity.actionPeriod);
                 break;
@@ -307,7 +307,7 @@ public final class Functions
                                            entity.images);
 
             removeEntity(world, entity);
-            unscheduleAllEvents(scheduler, entity);
+            scheduler.unscheduleAllEvents(entity);
 
             addEntity(world, miner);
             scheduleActions(miner, scheduler, world, imageStore);
@@ -330,7 +330,7 @@ public final class Functions
                                           entity.images);
 
         removeEntity(world, entity);
-        unscheduleAllEvents(scheduler, entity);
+        scheduler.unscheduleAllEvents(entity);
 
         addEntity(world, miner);
         scheduleActions(miner, scheduler, world, imageStore);
@@ -345,7 +345,7 @@ public final class Functions
         if (miner.position.adjacent(target.position)) {
             miner.resourceCount += 1;
             removeEntity(world, target);
-            unscheduleAllEvents(scheduler, target);
+            scheduler.unscheduleAllEvents(target);
 
             return true;
         }
@@ -355,7 +355,7 @@ public final class Functions
             if (!miner.position.equals(nextPos)) {
                 Optional<Entity> occupant = getOccupant(world, nextPos);
                 if (occupant.isPresent()) {
-                    unscheduleAllEvents(scheduler, occupant.get());
+                    scheduler.unscheduleAllEvents(occupant.get());
                 }
 
                 moveEntity(world, miner, nextPos);
@@ -379,7 +379,7 @@ public final class Functions
             if (!miner.position.equals(nextPos)) {
                 Optional<Entity> occupant = getOccupant(world, nextPos);
                 if (occupant.isPresent()) {
-                    unscheduleAllEvents(scheduler, occupant.get());
+                    scheduler.unscheduleAllEvents(occupant.get());
                 }
 
                 moveEntity(world, miner, nextPos);
@@ -396,7 +396,7 @@ public final class Functions
     {
         if (blob.position.adjacent(target.position)) {
             removeEntity(world, target);
-            unscheduleAllEvents(scheduler, target);
+            scheduler.unscheduleAllEvents(target);
             return true;
         }
         else {
@@ -405,7 +405,7 @@ public final class Functions
             if (!blob.position.equals(nextPos)) {
                 Optional<Entity> occupant = getOccupant(world, nextPos);
                 if (occupant.isPresent()) {
-                    unscheduleAllEvents(scheduler, occupant.get());
+                    scheduler.unscheduleAllEvents(occupant.get());
                 }
 
                 moveEntity(world, blob, nextPos);
@@ -471,57 +471,6 @@ public final class Functions
         return Optional.empty();
     }
 
-    public static void scheduleEvent(
-            EventScheduler scheduler,
-            Entity entity,
-            Action action,
-            long afterPeriod)
-    {
-        long time = System.currentTimeMillis() + (long)(afterPeriod
-                * scheduler.timeScale);
-        Event event = new Event(action, time, entity);
-
-        scheduler.eventQueue.add(event);
-
-        // update list of pending events for the given entity
-        List<Event> pending = scheduler.pendingEvents.getOrDefault(entity,
-                                                                   new LinkedList<>());
-        pending.add(event);
-        scheduler.pendingEvents.put(entity, pending);
-    }
-
-    public static void unscheduleAllEvents(
-            EventScheduler scheduler, Entity entity)
-    {
-        List<Event> pending = scheduler.pendingEvents.remove(entity);
-
-        if (pending != null) {
-            for (Event event : pending) {
-                scheduler.eventQueue.remove(event);
-            }
-        }
-    }
-
-    public static void removePendingEvent(
-            EventScheduler scheduler, Event event)
-    {
-        List<Event> pending = scheduler.pendingEvents.get(event.entity);
-
-        if (pending != null) {
-            pending.remove(event);
-        }
-    }
-
-    public static void updateOnTime(EventScheduler scheduler, long time) {
-        while (!scheduler.eventQueue.isEmpty()
-                && scheduler.eventQueue.peek().time < time) {
-            Event next = scheduler.eventQueue.poll();
-
-            removePendingEvent(scheduler, next);
-
-            next.action.executeAction(scheduler);
-        }
-    }
 
 
     public static void loadImages(
