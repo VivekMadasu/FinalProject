@@ -26,7 +26,9 @@
             <y:AttributeLabel xml:space="preserve">-id: String
 -images: List&lt;PImage&gt;
 -imageIndex: int</y:AttributeLabel>
-            <y:MethodLabel xml:space="preserve"/>
+            <y:MethodLabel xml:space="preserve">+getId(): String
++getImages(): List&lt;PImage&gt;
++getImageIndex(): int</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -43,7 +45,9 @@
             <y:AttributeLabel xml:space="preserve">-action: Action
 -time: long
 -entity: Entity</y:AttributeLabel>
-            <y:MethodLabel xml:space="preserve"/>
+            <y:MethodLabel xml:space="preserve">+getAction(): Action
++getTime(): long
++getEntity(): Entity</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -75,7 +79,10 @@
             <y:AttributeLabel xml:space="preserve">-eventQueue: PriorityQueue&lt;Event&gt;
 -pendingEvents: Map&lt;Entity, List&lt;Event&gt;&gt;
 -timeScale: double</y:AttributeLabel>
-            <y:MethodLabel xml:space="preserve">+scheduleEvent(): void
+            <y:MethodLabel xml:space="preserve">+getEventQueue(): PriorityQueue&lt;Event&gt;
++getPendingEvents(): Map&lt;Entity, List&lt;Event&gt;&gt;
++getTimeScale: double
++scheduleEvent(): void
 +unscheduleAllEvents(): void  
 +removePendingEvent(): void  
 +updateOnTime(): void   </y:MethodLabel>
@@ -174,12 +181,20 @@
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="70.447265625" x="44.77636718749997" xml:space="preserve" y="3.0">WorldView<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
-            <y:AttributeLabel xml:space="preserve">+screen: PApplet
-+world: WorldModel
-+tileWidth: int
-+tileHeight: int
-+viewport: Viewport</y:AttributeLabel>
-            <y:MethodLabel xml:space="preserve"/>
+            <y:AttributeLabel xml:space="preserve">-screen: PApplet
+-world: WorldModel
+-tileWidth: int
+-tileHeight: int
+-viewport: Viewport</y:AttributeLabel>
+            <y:MethodLabel xml:space="preserve">+getScreen(): PApplet
++getWorld(): WorldModel
++get TileWidth(): int
++get TileHeight(): int
++getViewport(): Viewport
++shiftView(): void
++drawBackground(): void 
++drawEntities(): void
++drawViewport(): void </y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -237,7 +252,7 @@
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="1897.1825069713047" width="365.0" x="290.1169372294555" y="744.7862724920521"/>
+          <y:Geometry height="1710.8092387179593" width="365.0" x="290.1169372294555" y="744.786272492052"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="66.10546875" x="149.447265625" xml:space="preserve" y="3.0">Functions<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -345,10 +360,6 @@
 +getBackgroundCell(): Background             &lt;&lt;static&gt;&gt;
 +setBackgroundCell()                         &lt;&lt;static&gt;&gt;
 +clamp()                                      &lt;&lt;static&gt;&gt;
-+shiftView()                                 &lt;&lt;static&gt;&gt;
-+drawBackground()                            &lt;&lt;static&gt;&gt;
-+drawEntities()                              &lt;&lt;static&gt;&gt;
-+drawViewport()                              &lt;&lt;static&gt;&gt;
 +createAnimationAction(): Action             &lt;&lt;static&gt;&gt;
 +createActivityAction(): Action              &lt;&lt;static&gt;&gt;
 +createBlacksmith(): Entity                  &lt;&lt;static&gt;&gt;
@@ -377,7 +388,12 @@
 -world: WorldModel
 -imageStore: ImageStore
 -repeatCount: int</y:AttributeLabel>
-            <y:MethodLabel xml:space="preserve">+executeAction(): void     
+            <y:MethodLabel xml:space="preserve">+getKind(): ActionKind
++getEntity: Entity
++getWorld(): WorldModel
++getImageStore(): ImageStore
++getRepeatCount(): int
++executeAction(): void     
 +executeAnimationAction(): void 
 +executeActivityAction(): void                   </y:MethodLabel>
           </y:UML>
