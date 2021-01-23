@@ -342,7 +342,7 @@ public final class Functions
             Entity target,
             EventScheduler scheduler)
     {
-        if (adjacent(miner.position, target.position)) {
+        if (miner.position.adjacent(target.position)) {
             miner.resourceCount += 1;
             removeEntity(world, target);
             unscheduleAllEvents(scheduler, target);
@@ -370,7 +370,7 @@ public final class Functions
             Entity target,
             EventScheduler scheduler)
     {
-        if (adjacent(miner.position, target.position)) {
+        if (miner.position.adjacent(target.position)) {
             return true;
         }
         else {
@@ -394,7 +394,7 @@ public final class Functions
             Entity target,
             EventScheduler scheduler)
     {
-        if (adjacent(blob.position, target.position)) {
+        if (blob.position.adjacent(target.position)) {
             removeEntity(world, target);
             unscheduleAllEvents(scheduler, target);
             return true;
@@ -417,12 +417,12 @@ public final class Functions
     public static Point nextPositionMiner(
             Entity entity, WorldModel world, Point destPos)
     {
-        int horiz = Integer.signum(destPos.x - entity.position.x);
-        Point newPos = new Point(entity.position.x + horiz, entity.position.y);
+        int horiz = Integer.signum(destPos.getX() - entity.position.getX());
+        Point newPos = new Point(entity.position.getX() + horiz, entity.position.getY());
 
         if (horiz == 0 || isOccupied(world, newPos)) {
-            int vert = Integer.signum(destPos.y - entity.position.y);
-            newPos = new Point(entity.position.x, entity.position.y + vert);
+            int vert = Integer.signum(destPos.getY() - entity.position.getY());
+            newPos = new Point(entity.position.getX(), entity.position.getY() + vert);
 
             if (vert == 0 || isOccupied(world, newPos)) {
                 newPos = entity.position;
@@ -435,16 +435,16 @@ public final class Functions
     public static Point nextPositionOreBlob(
             Entity entity, WorldModel world, Point destPos)
     {
-        int horiz = Integer.signum(destPos.x - entity.position.x);
-        Point newPos = new Point(entity.position.x + horiz, entity.position.y);
+        int horiz = Integer.signum(destPos.getX() - entity.position.getX());
+        Point newPos = new Point(entity.position.getX() + horiz, entity.position.getY());
 
         Optional<Entity> occupant = getOccupant(world, newPos);
 
         if (horiz == 0 || (occupant.isPresent() && !(occupant.get().kind
                 == EntityKind.ORE)))
         {
-            int vert = Integer.signum(destPos.y - entity.position.y);
-            newPos = new Point(entity.position.x, entity.position.y + vert);
+            int vert = Integer.signum(destPos.getY() - entity.position.getY());
+            newPos = new Point(entity.position.getX(), entity.position.getY() + vert);
             occupant = getOccupant(world, newPos);
 
             if (vert == 0 || (occupant.isPresent() && !(occupant.get().kind
@@ -457,15 +457,11 @@ public final class Functions
         return newPos;
     }
 
-    public static boolean adjacent(Point p1, Point p2) {
-        return (p1.x == p2.x && Math.abs(p1.y - p2.y) == 1) || (p1.y == p2.y
-                && Math.abs(p1.x - p2.x) == 1);
-    }
 
     public static Optional<Point> findOpenAround(WorldModel world, Point pos) {
         for (int dy = -ORE_REACH; dy <= ORE_REACH; dy++) {
             for (int dx = -ORE_REACH; dx <= ORE_REACH; dx++) {
-                Point newPt = new Point(pos.x + dx, pos.y + dy);
+                Point newPt = new Point(pos.getX() + dx, pos.getY() + dy);
                 if (withinBounds(world, newPt) && !isOccupied(world, newPt)) {
                     return Optional.of(newPt);
                 }
@@ -746,8 +742,8 @@ public final class Functions
     }
 
     public static boolean withinBounds(WorldModel world, Point pos) {
-        return pos.y >= 0 && pos.y < world.numRows && pos.x >= 0
-                && pos.x < world.numCols;
+        return pos.getY() >= 0 && pos.getY() < world.numRows && pos.getX() >= 0
+                && pos.getX() < world.numCols;
     }
 
     public static boolean isOccupied(WorldModel world, Point pos) {
@@ -778,8 +774,8 @@ public final class Functions
     }
 
     public static int distanceSquared(Point p1, Point p2) {
-        int deltaX = p1.x - p2.x;
-        int deltaY = p1.y - p2.y;
+        int deltaX = p1.getX() - p2.getX();
+        int deltaY = p1.getY() - p2.getY();
 
         return deltaX * deltaX + deltaY * deltaY;
     }
@@ -863,23 +859,23 @@ public final class Functions
     }
 
     public static Entity getOccupancyCell(WorldModel world, Point pos) {
-        return world.occupancy[pos.y][pos.x];
+        return world.occupancy[pos.getY()][pos.getX()];
     }
 
     public static void setOccupancyCell(
             WorldModel world, Point pos, Entity entity)
     {
-        world.occupancy[pos.y][pos.x] = entity;
+        world.occupancy[pos.getY()][pos.getX()] = entity;
     }
 
     public static Background getBackgroundCell(WorldModel world, Point pos) {
-        return world.background[pos.y][pos.x];
+        return world.background[pos.getY()][pos.getX()];
     }
 
     public static void setBackgroundCell(
             WorldModel world, Point pos, Background background)
     {
-        world.background[pos.y][pos.x] = background;
+        world.background[pos.getY()][pos.getX()] = background;
     }
 
 
@@ -915,10 +911,10 @@ public final class Functions
             Point pos = entity.position;
 
             if (view.viewport.contains(pos)) {
-                Point viewPoint = view.viewport.worldToViewport(pos.x, pos.y);
+                Point viewPoint = view.viewport.worldToViewport(pos.getX(), pos.getY());
                 view.screen.image(getCurrentImage(entity),
-                                  viewPoint.x * view.tileWidth,
-                                  viewPoint.y * view.tileHeight);
+                                  viewPoint.getX() * view.tileWidth,
+                                  viewPoint.getY() * view.tileHeight);
             }
         }
     }

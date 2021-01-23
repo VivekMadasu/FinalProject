@@ -1,11 +1,19 @@
 public final class Point
 {
-    public final int x;
-    public final int y;
+    private final int x;
+    private final int y;
 
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     public String toString() {
@@ -23,4 +31,10 @@ public final class Point
         result = result * 31 + y;
         return result;
     }
+
+    public boolean adjacent(Point p2) {
+        return (this.x == p2.x && Math.abs(this.y - p2.y) == 1) || (this.y == p2.y
+                && Math.abs(this.x - p2.x) == 1);
+    }
+
 }
