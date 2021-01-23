@@ -81,8 +81,8 @@ public final class Functions
 
     public static PImage getCurrentImage(Object entity) {
         if (entity instanceof Background) {
-            return ((Background)entity).images.get(
-                    ((Background)entity).imageIndex);
+            return ((Background)entity).getImages().get(
+                    ((Background)entity).getImageIndex());
         }
         else if (entity instanceof Entity) {
             return ((Entity)entity).images.get(((Entity)entity).imageIndex);
@@ -758,10 +758,10 @@ public final class Functions
         }
         else {
             Entity nearest = entities.get(0);
-            int nearestDistance = distanceSquared(nearest.position, pos);
+            int nearestDistance = nearest.position.distanceSquared(pos);
 
             for (Entity other : entities) {
-                int otherDistance = distanceSquared(other.position, pos);
+                int otherDistance = other.position.distanceSquared(pos);
 
                 if (otherDistance < nearestDistance) {
                     nearest = other;
@@ -773,12 +773,6 @@ public final class Functions
         }
     }
 
-    public static int distanceSquared(Point p1, Point p2) {
-        int deltaX = p1.getX() - p2.getX();
-        int deltaY = p1.getY() - p2.getY();
-
-        return deltaX * deltaX + deltaY * deltaY;
-    }
 
     public static Optional<Entity> findNearest(
             WorldModel world, Point pos, EntityKind kind)

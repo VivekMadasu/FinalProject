@@ -37,4 +37,12 @@ public final class Point
                 && Math.abs(this.x - p2.x) == 1);
     }
 
+    public int distanceSquared(Point p2) {
+        int deltaX = this.getX() - p2.getX();
+        int deltaY = this.getY() - p2.getY();
+
+        return deltaX * deltaX + deltaY * deltaY;
+    }
+
+
 }
