@@ -1,0 +1,134 @@
+Index: src/Entity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.util.List;\r\n\r\nimport processing.core.PImage;\r\n\r\npublic final class Entity\r\n{\r\n    public EntityKind kind;\r\n    public String id;\r\n    public Point position;\r\n    public List<PImage> images;\r\n    public int imageIndex;\r\n    public int resourceLimit;\r\n    public int resourceCount;\r\n    public int actionPeriod;\r\n    public int animationPeriod;\r\n\r\n    public Entity(\r\n            EntityKind kind,\r\n            String id,\r\n            Point position,\r\n            List<PImage> images,\r\n            int resourceLimit,\r\n            int resourceCount,\r\n            int actionPeriod,\r\n            int animationPeriod)\r\n    {\r\n        this.kind = kind;\r\n        this.id = id;\r\n        this.position = position;\r\n        this.images = images;\r\n        this.imageIndex = 0;\r\n        this.resourceLimit = resourceLimit;\r\n        this.resourceCount = resourceCount;\r\n        this.actionPeriod = actionPeriod;\r\n        this.animationPeriod = animationPeriod;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Entity.java b/src/Entity.java
+--- a/src/Entity.java	(revision 22895c2f5ee364f77dc2294fe3141d298ad5b601)
++++ b/src/Entity.java	(date 1611471856850)
+@@ -4,15 +4,87 @@
+ 
+ public final class Entity
+ {
+-    public EntityKind kind;
+-    public String id;
++    private EntityKind kind;
++    private String id;
+     public Point position;
+-    public List<PImage> images;
+-    public int imageIndex;
+-    public int resourceLimit;
+-    public int resourceCount;
+-    public int actionPeriod;
+-    public int animationPeriod;
++    private List<PImage> images;
++    private int imageIndex;
++    private int resourceLimit;
++    private int resourceCount;
++    private int actionPeriod;
++    private int animationPeriod;
++
++    public EntityKind getKind() {
++        return kind;
++    }
++
++    public void setKind(EntityKind kind) {
++        this.kind = kind;
++    }
++
++    public String getId() {
++        return id;
++    }
++
++    public void setId(String id) {
++        this.id = id;
++    }
++
++    public Point getPosition() {
++        return position;
++    }
++
++    public void setPosition(Point position) {
++        this.position = position;
++    }
++
++    public List<PImage> getImages() {
++        return images;
++    }
++
++    public void setImages(List<PImage> images) {
++        this.images = images;
++    }
++
++    public int getImageIndex() {
++        return imageIndex;
++    }
++
++    public void setImageIndex(int imageIndex) {
++        this.imageIndex = imageIndex;
++    }
++
++    public int getResourceLimit() {
++        return resourceLimit;
++    }
++
++    public void setResourceLimit(int resourceLimit) {
++        this.resourceLimit = resourceLimit;
++    }
++
++    public int getResourceCount() {
++        return resourceCount;
++    }
++
++    public void setResourceCount(int resourceCount) {
++        this.resourceCount = resourceCount;
++    }
++
++    public int getActionPeriod() {
++        return actionPeriod;
++    }
++
++    public void setActionPeriod(int actionPeriod) {
++        this.actionPeriod = actionPeriod;
++    }
++
++    public int getAnimationPeriod() {
++        return animationPeriod;
++    }
++
++    public void setAnimationPeriod(int animationPeriod) {
++        this.animationPeriod = animationPeriod;
++    }
+ 
+     public Entity(
+             EntityKind kind,
+Index: src/Action.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>public final class Action\r\n{\r\n    private ActionKind kind;\r\n    private Entity entity;\r\n    private WorldModel world;\r\n    private ImageStore imageStore;\r\n    private int repeatCount;\r\n\r\n\r\n    public ActionKind getKind() {\r\n        return kind;\r\n    }\r\n\r\n    public Entity getEntity() {\r\n        return entity;\r\n    }\r\n\r\n    public WorldModel getWorld() {\r\n        return world;\r\n    }\r\n\r\n    public ImageStore getImageStore() {\r\n        return imageStore;\r\n    }\r\n\r\n    public int getRepeatCount() {\r\n        return repeatCount;\r\n    }\r\n\r\n    public Action(\r\n            ActionKind kind,\r\n            Entity entity,\r\n            WorldModel world,\r\n            ImageStore imageStore,\r\n            int repeatCount)\r\n    {\r\n        this.kind = kind;\r\n        this.entity = entity;\r\n        this.world = world;\r\n        this.imageStore = imageStore;\r\n        this.repeatCount = repeatCount;\r\n    }\r\n\r\n    public void executeAction(EventScheduler scheduler) {\r\n        switch (kind) {\r\n            case ACTIVITY:\r\n                executeActivityAction(scheduler);\r\n                break;\r\n\r\n            case ANIMATION:\r\n                executeAnimationAction(scheduler);\r\n                break;\r\n        }\r\n    }\r\n\r\n    public void executeAnimationAction(EventScheduler scheduler)\r\n    {\r\n        Functions.nextImage(entity);\r\n\r\n        if (repeatCount != 1) {\r\n            scheduler.scheduleEvent(this.entity,\r\n                    Functions.createAnimationAction(this.entity,\r\n                            Math.max(this.repeatCount - 1,\r\n                                    0)),\r\n                    Functions.getAnimationPeriod(this.entity));\r\n        }\r\n    }\r\n\r\n    public void executeActivityAction(EventScheduler scheduler)\r\n    {\r\n        switch (this.entity.kind) {\r\n            case MINER_FULL:\r\n                Functions.executeMinerFullActivity(this.entity, this.world,\r\n                        this.imageStore, scheduler);\r\n                break;\r\n\r\n            case MINER_NOT_FULL:\r\n                Functions.executeMinerNotFullActivity(this.entity, this.world,\r\n                        this.imageStore, scheduler);\r\n                break;\r\n\r\n            case ORE:\r\n                Functions.executeOreActivity(this.entity, this.world,\r\n                        this.imageStore, scheduler);\r\n                break;\r\n\r\n            case ORE_BLOB:\r\n                Functions.executeOreBlobActivity(this.entity, this.world,\r\n                        this.imageStore, scheduler);\r\n                break;\r\n\r\n            case QUAKE:\r\n                Functions.executeQuakeActivity(this.entity, this.world,\r\n                        this.imageStore, scheduler);\r\n                break;\r\n\r\n            case VEIN:\r\n                Functions.executeVeinActivity(this.entity, this.world,\r\n                        this.imageStore, scheduler);\r\n                break;\r\n\r\n            default:\r\n                throw new UnsupportedOperationException(String.format(\r\n                        \"executeActivityAction not supported for %s\",\r\n                        this.entity.kind));\r\n        }\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Action.java b/src/Action.java
+--- a/src/Action.java	(revision 22895c2f5ee364f77dc2294fe3141d298ad5b601)
++++ b/src/Action.java	(date 1611471856861)
+@@ -68,7 +68,7 @@
+ 
+     public void executeActivityAction(EventScheduler scheduler)
+     {
+-        switch (this.entity.kind) {
++        switch (this.entity.getKind()) {
+             case MINER_FULL:
+                 Functions.executeMinerFullActivity(this.entity, this.world,
+                         this.imageStore, scheduler);
+@@ -102,7 +102,7 @@
+             default:
+                 throw new UnsupportedOperationException(String.format(
+                         "executeActivityAction not supported for %s",
+-                        this.entity.kind));
++                        this.entity.getKind()));
+         }
+     }
+ 
