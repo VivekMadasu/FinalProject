@@ -102,7 +102,8 @@
             <y:AttributeLabel xml:space="preserve">-images: Map&lt;String, List&lt;PImage&gt;&gt;
 -defaultImages: List&lt;PImage&gt;</y:AttributeLabel>
             <y:MethodLabel xml:space="preserve">+getImages(): Map&lt;String, List&lt;PImage&gt;&gt;
-+getImageList(): List&lt;PImage&gt;</y:MethodLabel>
++getImageList(): List&lt;PImage&gt;
++loadImages(): void</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -335,7 +336,6 @@
 +BGND_COL: int                               &lt;&lt;static&gt;&gt;
 +BGND_ROW: int                               &lt;&lt;static&gt;&gt;</y:AttributeLabel>
             <y:MethodLabel xml:space="preserve">+getCurrentImage(): PImage            &lt;&lt;static&gt;&gt;
-+loadImages()                                &lt;&lt;static&gt;&gt;
 +processImageLine()                          &lt;&lt;static&gt;&gt;
 +getImages(): List&lt;PImage&gt;                   &lt;&lt;static&gt;&gt;
 +setAlpha()                                  &lt;&lt;static&gt;&gt;
