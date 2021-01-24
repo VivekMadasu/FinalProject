@@ -162,12 +162,33 @@
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="78.37548828125" x="57.31225585937496" xml:space="preserve" y="3.0">WorldModel<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
-            <y:AttributeLabel xml:space="preserve">+numRows: int
-+numCols: int
-+background: Background[][]
-+occupancy: Entity[][]
-+entities: Set&lt;Entity&gt;</y:AttributeLabel>
-            <y:MethodLabel xml:space="preserve"/>
+            <y:AttributeLabel xml:space="preserve">-numRows: int
+-numCols: int
+-background: Background[][]
+-occupancy: Entity[][]
+-entities: Set&lt;Entity&gt;</y:AttributeLabel>
+            <y:MethodLabel xml:space="preserve">+getNumRows: int
++getNumCols: int
++getBackground: Background[][]
++getOccupancy: Entity[][]
++getEntities: Set&lt;Entity&gt;
++findOpenAround(): Optional&lt;Point&gt;
+ +tryAddEntity(): void      
++withinBounds(): boolean
++isOccupied(): boolean   
++nearestEntity(): Optional&lt;Entity&gt; 
++findNearest(): Optional&lt;Entity&gt;  
++addEntity(): void 
++moveEntity(): void   
++removeEntity(): void   
++removeEntityAt(): void
++getBackgroundImage(): Optional&lt;PImage&gt;  
++setBackground(): void  
++getOccupant(): Optional&lt;Entity&gt;
++getOccupancyCell(): Entity  
++setOccupancyCell(): void 
++getBackgroundCell(): Background   
++setBackgroundCell(): void    </y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -252,7 +273,7 @@
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="1710.8092387179593" width="365.0" x="290.1169372294555" y="744.786272492052"/>
+          <y:Geometry height="1461.5047370284194" width="365.0" x="290.1169372294555" y="744.786272492052"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="66.10546875" x="149.447265625" xml:space="preserve" y="3.0">Functions<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -330,7 +351,6 @@
 +moveToOreBlob(): boolean                    &lt;&lt;static&gt;&gt;
 +nextPositionMiner(): Point                  &lt;&lt;static&gt;&gt;
 +nextPositionOreBlob(): Point                &lt;&lt;static&gt;&gt;
-+findOpenAround(): Optional&lt;Point&gt;  &lt;&lt;static&gt;&gt;
 +loadImages()                                &lt;&lt;static&gt;&gt;
 +processImageLine()                          &lt;&lt;static&gt;&gt;
 +getImages(): List&lt;PImage&gt;                   &lt;&lt;static&gt;&gt;
@@ -343,22 +363,6 @@
 +parseOre(): boolean                         &lt;&lt;static&gt;&gt;
 +parseSmith(): boolean                       &lt;&lt;static&gt;&gt;
 +parseVein(): boolean                        &lt;&lt;static&gt;&gt;
-+tryAddEntity()                              &lt;&lt;static&gt;&gt;
-+withinBounds(): boolean                     &lt;&lt;static&gt;&gt;
-+isOccupied(): boolean                       &lt;&lt;static&gt;&gt;
-+nearestEntity(): Optional&lt;Entity&gt;           &lt;&lt;static&gt;&gt;
-+findNearest(): Optional&lt;Entity&gt;             &lt;&lt;static&gt;&gt;
-+addEntity()                                 &lt;&lt;static&gt;&gt;
-+moveEntity()                                &lt;&lt;static&gt;&gt;
-+removeEntity()                              &lt;&lt;static&gt;&gt;
-+removeEntityAt()                            &lt;&lt;static&gt;&gt;
-+getBackgroundImage(): Optional&lt;PImage&gt;      &lt;&lt;static&gt;&gt;
-+setBackground()                             &lt;&lt;static&gt;&gt;
-+getOccupant(): Optional&lt;Entity&gt;             &lt;&lt;static&gt;&gt;
-+getOccupancyCell(): Entity                  &lt;&lt;static&gt;&gt;
-+setOccupancyCell()                          &lt;&lt;static&gt;&gt;
-+getBackgroundCell(): Background             &lt;&lt;static&gt;&gt;
-+setBackgroundCell()                         &lt;&lt;static&gt;&gt;
 +clamp()                                      &lt;&lt;static&gt;&gt;
 +createAnimationAction(): Action             &lt;&lt;static&gt;&gt;
 +createActivityAction(): Action              &lt;&lt;static&gt;&gt;
