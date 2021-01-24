@@ -55,14 +55,14 @@ public final class Action
 
     public void executeAnimationAction(EventScheduler scheduler)
     {
-        Functions.nextImage(entity);
+        entity.nextImage();
 
         if (repeatCount != 1) {
             scheduler.scheduleEvent(this.entity,
-                    Functions.createAnimationAction(this.entity,
+                    this.entity.createAnimationAction(
                             Math.max(this.repeatCount - 1,
                                     0)),
-                    Functions.getAnimationPeriod(this.entity));
+                    this.entity.getAnimationPeriod());
         }
     }
 
@@ -70,32 +70,32 @@ public final class Action
     {
         switch (this.entity.kind) {
             case MINER_FULL:
-                Functions.executeMinerFullActivity(this.entity, this.world,
+                this.entity.executeMinerFullActivity(this.world,
                         this.imageStore, scheduler);
                 break;
 
             case MINER_NOT_FULL:
-                Functions.executeMinerNotFullActivity(this.entity, this.world,
+                this.entity.executeMinerNotFullActivity(this.world,
                         this.imageStore, scheduler);
                 break;
 
             case ORE:
-                Functions.executeOreActivity(this.entity, this.world,
+                this.entity.executeOreActivity(this.world,
                         this.imageStore, scheduler);
                 break;
 
             case ORE_BLOB:
-                Functions.executeOreBlobActivity(this.entity, this.world,
+                this.entity.executeOreBlobActivity(this.world,
                         this.imageStore, scheduler);
                 break;
 
             case QUAKE:
-                Functions.executeQuakeActivity(this.entity, this.world,
+                this.entity.executeQuakeActivity(this.world,
                         this.imageStore, scheduler);
                 break;
 
             case VEIN:
-                Functions.executeVeinActivity(this.entity, this.world,
+                this.entity.executeVeinActivity(this.world,
                         this.imageStore, scheduler);
                 break;
 
