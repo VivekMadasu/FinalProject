@@ -5,15 +5,15 @@ import processing.core.PImage;
 
 public final class Entity
 {
-    public EntityKind kind;
-    public String id;
-    public Point position;
-    public List<PImage> images;
-    public int imageIndex;
-    public int resourceLimit;
-    public int resourceCount;
-    public int actionPeriod;
-    public int animationPeriod;
+    private final EntityKind kind;
+    private final String id;
+    private Point position;
+    private final List<PImage> images;
+    private int imageIndex;
+    private final int resourceLimit;
+    private int resourceCount;
+    private final int actionPeriod;
+    private final int animationPeriod;
 
     public Entity(
             EntityKind kind,
@@ -35,6 +35,46 @@ public final class Entity
         this.actionPeriod = actionPeriod;
         this.animationPeriod = animationPeriod;
     }
+
+    public EntityKind getKind() {
+        return kind;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Point getPosition() {
+        return position;
+    }
+
+    public void setPosition(Point position) {
+        this.position = position;
+
+    }
+
+    public List<PImage> getImages() {
+        return images;
+    }
+
+    public int getImageIndex() {
+        return imageIndex;
+    }
+
+
+    public int getResourceLimit() {
+        return resourceLimit;
+    }
+
+
+    public int getResourceCount() {
+        return resourceCount;
+    }
+
+    public int getActionPeriod() {
+        return actionPeriod;
+    }
+
 
     public int getAnimationPeriod() {
         switch (this.kind) {

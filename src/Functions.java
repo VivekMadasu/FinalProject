@@ -85,7 +85,7 @@ public final class Functions
                     ((Background)entity).getImageIndex());
         }
         else if (entity instanceof Entity) {
-            return ((Entity)entity).images.get(((Entity)entity).imageIndex);
+            return ((Entity)entity).getImages().get(((Entity)entity).getImageIndex());
         }
         else {
             throw new UnsupportedOperationException(
@@ -294,10 +294,10 @@ public final class Functions
         }
         else {
             Entity nearest = entities.get(0);
-            int nearestDistance = nearest.position.distanceSquared(pos);
+            int nearestDistance = nearest.getPosition().distanceSquared(pos);
 
             for (Entity other : entities) {
-                int otherDistance = other.position.distanceSquared(pos);
+                int otherDistance = other.getPosition().distanceSquared(pos);
 
                 if (otherDistance < nearestDistance) {
                     nearest = other;

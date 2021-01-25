@@ -68,7 +68,7 @@ public final class Action
 
     public void executeActivityAction(EventScheduler scheduler)
     {
-        switch (this.entity.kind) {
+        switch (this.entity.getKind()) {
             case MINER_FULL:
                 this.entity.executeMinerFullActivity(this.world,
                         this.imageStore, scheduler);
@@ -102,7 +102,7 @@ public final class Action
             default:
                 throw new UnsupportedOperationException(String.format(
                         "executeActivityAction not supported for %s",
-                        this.entity.kind));
+                        this.entity.getKind()));
         }
     }
 
