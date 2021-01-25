@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.Optional;
+
 public final class Point
 {
     private final int x;
@@ -6,6 +9,29 @@ public final class Point
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Optional<Entity> nearestEntity(
+            List<Entity> entities)
+    {
+        if (entities.isEmpty()) {
+            return Optional.empty();
+        }
+        else {
+            Entity nearest = entities.get(0);
+            int nearestDistance = nearest.getPosition().distanceSquared(this);
+
+            for (Entity other : entities) {
+                int otherDistance = other.getPosition().distanceSquared(this);
+
+                if (otherDistance < nearestDistance) {
+                    nearest = other;
+                    nearestDistance = otherDistance;
+                }
+            }
+
+            return Optional.of(nearest);
+        }
     }
 
     public int getX() {
