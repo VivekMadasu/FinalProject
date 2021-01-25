@@ -1,3 +1,5 @@
+import processing.core.PImage;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +11,13 @@ public final class Point
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Entity createBlacksmith(
+            String id, List<PImage> images)
+    {
+        return new Entity(EntityKind.BLACKSMITH, id, this, images, 0, 0, 0,
+                          0);
     }
 
     public Optional<Entity> nearestEntity(

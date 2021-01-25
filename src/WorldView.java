@@ -11,6 +11,10 @@ public final class WorldView
     private final int tileHeight;
     private final Viewport viewport;
 
+    private static int clamp(int value, int low, int high) {
+        return Math.min(high, Math.max(value, low));
+    }
+
     public PApplet getScreen() {
         return screen;
     }
@@ -47,9 +51,9 @@ public final class WorldView
     }
 
     public void shiftView(int colDelta, int rowDelta) {
-        int newCol = Functions.clamp(this.viewport.getCol() + colDelta, 0,
+        int newCol = clamp(this.viewport.getCol() + colDelta, 0,
                 this.world.getNumCols() - this.viewport.getNumCols());
-        int newRow = Functions.clamp(this.viewport.getRow() + rowDelta, 0,
+        int newRow = clamp(this.viewport.getRow() + rowDelta, 0,
                 this.world.getNumRows() - this.viewport.getNumRows());
 
         this.viewport.shift(newCol, newRow);
@@ -81,6 +85,8 @@ public final class WorldView
             }
         }
     }
+
+
 
     public void drawViewport() {
         drawBackground();
