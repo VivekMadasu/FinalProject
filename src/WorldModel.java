@@ -4,6 +4,8 @@ import java.util.*;
 
 public final class WorldModel
 {
+    public static final int ORE_REACH = 1;
+
     private int numRows;
     private int numCols;
     private Background background[][];
@@ -43,8 +45,8 @@ public final class WorldModel
     }
 
     public Optional<Point> findOpenAround(Point pos) {
-        for (int dy = -Functions.ORE_REACH; dy <= Functions.ORE_REACH; dy++) {
-            for (int dx = -Functions.ORE_REACH; dx <= Functions.ORE_REACH; dx++) {
+        for (int dy = -WorldModel.ORE_REACH; dy <= WorldModel.ORE_REACH; dy++) {
+            for (int dx = -WorldModel.ORE_REACH; dx <= WorldModel.ORE_REACH; dx++) {
                 Point newPt = new Point(pos.getX() + dx, pos.getY() + dy);
                 if (withinBounds(newPt) && !isOccupied(newPt)) {
                     return Optional.of(newPt);

@@ -5,6 +5,19 @@ import processing.core.PImage;
 
 public final class Entity
 {
+
+    public static final String BLOB_KEY = "blob";
+    public static final String BLOB_ID_SUFFIX = " -- blob";
+    public static final int BLOB_PERIOD_SCALE = 4;
+    public static final int BLOB_ANIMATION_MIN = 50;
+    public static final int BLOB_ANIMATION_MAX = 150;
+
+    public static final String ORE_ID_PREFIX = "ore -- ";
+    public static final int ORE_CORRUPT_MIN = 20000;
+    public static final int ORE_CORRUPT_MAX = 30000;
+
+
+
     private final EntityKind kind;
     private final String id;
     private Point position;
@@ -143,12 +156,12 @@ public final class Entity
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
 
-        Entity blob = Functions.createOreBlob(this.id + Functions.BLOB_ID_SUFFIX, pos,
-                this.actionPeriod / Functions.BLOB_PERIOD_SCALE,
-                Functions.BLOB_ANIMATION_MIN + Functions.rand.nextInt(
-                        Functions.BLOB_ANIMATION_MAX
-                                - Functions.BLOB_ANIMATION_MIN),
-                imageStore.getImageList(Functions.BLOB_KEY));
+        Entity blob = Functions.createOreBlob(this.id + Entity.BLOB_ID_SUFFIX, pos,
+                this.actionPeriod / Entity.BLOB_PERIOD_SCALE,
+                Entity.BLOB_ANIMATION_MIN + Functions.rand.nextInt(
+                        Entity.BLOB_ANIMATION_MAX
+                                - Entity.BLOB_ANIMATION_MIN),
+                imageStore.getImageList(Entity.BLOB_KEY));
 
         world.addEntity(blob);
         blob.scheduleActions(scheduler, world, imageStore);
@@ -198,9 +211,9 @@ public final class Entity
         Optional<Point> openPt = world.findOpenAround(this.position);
 
         if (openPt.isPresent()) {
-            Entity ore = Functions.createOre(Functions.ORE_ID_PREFIX + this.id, openPt.get(),
-                    Functions.ORE_CORRUPT_MIN + Functions.rand.nextInt(
-                            Functions.ORE_CORRUPT_MAX - Functions.ORE_CORRUPT_MIN),
+            Entity ore = Functions.createOre(Entity.ORE_ID_PREFIX + this.id, openPt.get(),
+                    Entity.ORE_CORRUPT_MIN + Functions.rand.nextInt(
+                            Entity.ORE_CORRUPT_MAX - Entity.ORE_CORRUPT_MIN),
                     imageStore.getImageList(Functions.ORE_KEY));
             world.addEntity(ore);
             ore.scheduleActions(scheduler, world, imageStore);
