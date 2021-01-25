@@ -12,6 +12,30 @@ public final class WorldModel
     private Entity occupancy[][];
     private Set<Entity> entities;
 
+    public void load(
+            Scanner in, ImageStore imageStore)
+    {
+        int lineNumber = 0;
+        while (in.hasNextLine()) {
+            try {
+                if (!Functions.processLine(in.nextLine(), this, imageStore)) {
+                    System.err.println(String.format("invalid entry on line %d",
+                                                     lineNumber));
+                }
+            }
+            catch (NumberFormatException e) {
+                System.err.println(
+                        String.format("invalid entry on line %d", lineNumber));
+            }
+            catch (IllegalArgumentException e) {
+                System.err.println(
+                        String.format("issue on line %d: %s", lineNumber,
+                                      e.getMessage()));
+            }
+            lineNumber++;
+        }
+    }
+
     public int getNumRows() {
         return numRows;
     }
