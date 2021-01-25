@@ -49,6 +49,10 @@ public final class Entity
         this.animationPeriod = animationPeriod;
     }
 
+    public PImage getCurrentImage() {
+            return getImages().get(getImageIndex());
+    }
+
     public EntityKind getKind() {
         return kind;
     }

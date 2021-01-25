@@ -8,6 +8,11 @@ public final class Background
     private final List<PImage> images;
     private final int imageIndex = 0;
 
+    public PImage getCurrentImage() {
+            return getImages().get(
+                    getImageIndex());
+    }
+
     public String getId() {
         return id;
     }
