@@ -1,8 +1,8 @@
 public final class Event
 {
-    private Action action;
-    private long time;
-    private Entity entity;
+    private final Action action;
+    private final long time;
+    private final Entity entity;
 
     public Action getAction() {
         return action;
