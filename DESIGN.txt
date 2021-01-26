@@ -11,3 +11,10 @@ createVein() - Did not make much use of objects
 Methods that could be placed in multiple classes:
 getCurrentImage() - Split in two, put part in Background and part in Entity
 clamp() - Moved to WorldView because it is being used in that class
+processLine() - Moved to WorldModel because it is used there
+parseBackground() - Moved to WorldModel because it is used there
+parseMiner() - Moved to WorldModel because it is used there
+parseObstacle - Moved to WorldModel because it is used there
+parseOre() - Moved to WorldModel because it is used there
+parseSmith() - Moved to WorldModel because it is used there
+parseVein() - Moved to WorldModel because it is used there
