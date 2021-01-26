@@ -1,0 +1,13 @@
+Methods left in Functions:
+createBlacksmith() - Did not make much use of objects
+createMinerFull() - Did not make much use of objects
+createMinerNotFull() - Did not make much use of objects
+createObstacle() - Did not make much use of objects
+createOre() - Did not make much use of objects
+createOreBlob() - Did not make much use of objects
+createQuake() - Did not make much use of objects, using instance variables from Functions.java
+createVein() - Did not make much use of objects
+
+Methods that could be placed in multiple classes:
+getCurrentImage() - Split in two, put part in Background and part in Entity
+clamp() - Moved to WorldView because it is being used in that class

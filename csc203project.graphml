@@ -337,9 +337,9 @@
           <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
             <y:AttributeLabel xml:space="preserve">+rand: Random                                &lt;&lt;static&gt;&gt;
 +QUAKE_KEY: String                           &lt;&lt;static&gt;&gt;
-+QUAKE_ID: String                            &lt;&lt;static&gt;&gt;
-+QUAKE_ACTION_PERIOD: int                    &lt;&lt;static&gt;&gt;
-+QUAKE_ANIMATION_PERIOD: int                 &lt;&lt;static&gt;&gt;
+-QUAKE_ID: String                            &lt;&lt;static&gt;&gt;
+-QUAKE_ACTION_PERIOD: int                    &lt;&lt;static&gt;&gt;
+-QUAKE_ANIMATION_PERIOD: int                 &lt;&lt;static&gt;&gt;
 +QUAKE_ANIMATION_REPEAT_COUNT: int           &lt;&lt;static&gt;&gt;
 </y:AttributeLabel>
             <y:MethodLabel xml:space="preserve">+createBlacksmith(): Entity                  &lt;&lt;static&gt;&gt;
