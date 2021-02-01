@@ -10,7 +10,7 @@ public final class Background
 
     public PImage getCurrentImage() {
             return getImages().get(
-                    getImageIndex());
+                    imageIndex);
     }
 
     public String getId() {
@@ -21,9 +21,6 @@ public final class Background
         return images;
     }
 
-    public int getImageIndex() {
-        return imageIndex;
-    }
 
     public Background(String id, List<PImage> images) {
         this.id = id;

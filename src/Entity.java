@@ -445,14 +445,14 @@ public final class Entity
     }
 
     public Action createAnimationAction(int repeatCount) {
-        return new Action(ActionKind.ANIMATION, this, null, null,
+        return new Animation(this, null, null,
                 repeatCount);
     }
 
     public Action createActivityAction(
             WorldModel world, ImageStore imageStore)
     {
-        return new Action(ActionKind.ACTIVITY, this, world, imageStore, 0);
+        return new Activity(this, world, imageStore, 0);
     }
 
 }
