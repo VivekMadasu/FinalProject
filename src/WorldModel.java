@@ -98,7 +98,7 @@ public final class WorldModel
         if (properties.length == MINER_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[MINER_COL]),
                                  Integer.parseInt(properties[MINER_ROW]));
-            Entity entity = Functions.createMinerNotFull(properties[MINER_ID],
+            Entity entity = Factory.createMinerNotFull(properties[MINER_ID],
                                                Integer.parseInt(
                                                        properties[MINER_LIMIT]),
                                                pt, Integer.parseInt(
@@ -117,7 +117,7 @@ public final class WorldModel
         if (properties.length == OBSTACLE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[OBSTACLE_COL]),
                                  Integer.parseInt(properties[OBSTACLE_ROW]));
-            Entity entity = Functions.createObstacle(properties[OBSTACLE_ID], pt,
+            Entity entity = Factory.createObstacle(properties[OBSTACLE_ID], pt,
                                            imageStore.getImageList(OBSTACLE_KEY));
             tryAddEntity(entity);
         }
@@ -131,7 +131,7 @@ public final class WorldModel
         if (properties.length == ORE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[ORE_COL]),
                                  Integer.parseInt(properties[ORE_ROW]));
-            Entity entity = Functions.createOre(properties[ORE_ID], pt, Integer.parseInt(
+            Entity entity = Factory.createOre(properties[ORE_ID], pt, Integer.parseInt(
                     properties[ORE_ACTION_PERIOD]),
                                       imageStore.getImageList(ORE_KEY));
             tryAddEntity(entity);
@@ -160,7 +160,7 @@ public final class WorldModel
         if (properties.length == VEIN_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[VEIN_COL]),
                                  Integer.parseInt(properties[VEIN_ROW]));
-            Entity entity = Functions.createVein(properties[VEIN_ID], pt,
+            Entity entity = Factory.createVein(properties[VEIN_ID], pt,
                                        Integer.parseInt(
                                                properties[VEIN_ACTION_PERIOD]),
                                        imageStore.getImageList(VEIN_KEY));

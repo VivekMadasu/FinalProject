@@ -160,7 +160,7 @@ public final class Entity
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
 
-        Entity blob = Functions.createOreBlob(this.id + Entity.BLOB_ID_SUFFIX, pos,
+        Entity blob = Factory.createOreBlob(this.id + Entity.BLOB_ID_SUFFIX, pos,
                 this.actionPeriod / Entity.BLOB_PERIOD_SCALE,
                 Entity.BLOB_ANIMATION_MIN + Functions.rand.nextInt(
                         Entity.BLOB_ANIMATION_MAX
@@ -184,7 +184,7 @@ public final class Entity
             Point tgtPos = blobTarget.get().position;
 
             if (this.moveToOreBlob(world, blobTarget.get(), scheduler)) {
-                Entity quake = Functions.createQuake(tgtPos,
+                Entity quake = Factory.createQuake(tgtPos,
                         imageStore.getImageList(Functions.QUAKE_KEY));
 
                 world.addEntity(quake);
@@ -215,7 +215,7 @@ public final class Entity
         Optional<Point> openPt = world.findOpenAround(this.position);
 
         if (openPt.isPresent()) {
-            Entity ore = Functions.createOre(Entity.ORE_ID_PREFIX + this.id, openPt.get(),
+            Entity ore = Factory.createOre(Entity.ORE_ID_PREFIX + this.id, openPt.get(),
                     Entity.ORE_CORRUPT_MIN + Functions.rand.nextInt(
                             Entity.ORE_CORRUPT_MAX - Entity.ORE_CORRUPT_MIN),
                     imageStore.getImageList(WorldModel.ORE_KEY));
@@ -292,7 +292,7 @@ public final class Entity
             ImageStore imageStore)
     {
         if (this.resourceCount >= this.resourceLimit) {
-            Entity miner = Functions.createMinerFull(this.id, this.resourceLimit,
+            Entity miner = Factory.createMinerFull(this.id, this.resourceLimit,
                     this.position, this.actionPeriod,
                     this.animationPeriod,
                     this.images);
@@ -314,7 +314,7 @@ public final class Entity
             EventScheduler scheduler,
             ImageStore imageStore)
     {
-        Entity miner = Functions.createMinerNotFull(this.id, this.resourceLimit,
+        Entity miner = Factory.createMinerNotFull(this.id, this.resourceLimit,
                 this.position, this.actionPeriod,
                 this.animationPeriod,
                 this.images);
