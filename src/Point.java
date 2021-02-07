@@ -13,12 +13,6 @@ public final class Point
         this.y = y;
     }
 
-    public Entity createBlacksmith(
-            String id, List<PImage> images)
-    {
-        return new Entity(EntityKind.BLACKSMITH, id, this, images, 0, 0, 0,
-                          0);
-    }
 
     public Optional<Entity> nearestEntity(
             List<Entity> entities)

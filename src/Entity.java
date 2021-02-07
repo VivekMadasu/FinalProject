@@ -3,10 +3,21 @@ import java.util.Optional;
 
 import processing.core.PImage;
 
-public final class Entity
+public interface Entity
 {
 
-    private static final String BLOB_KEY = "blob";
+    public PImage getCurrentImage();
+    public Point getPosition();
+    public void setPosition(Point position);
+    public List<PImage> getImages();
+    public int getImageIndex();
+    public void nextImage();
+
+
+
+
+/*
+      private static final String BLOB_KEY = "blob";
     private static final String BLOB_ID_SUFFIX = " -- blob";
     private static final int BLOB_PERIOD_SCALE = 4;
     private static final int BLOB_ANIMATION_MIN = 50;
@@ -18,7 +29,6 @@ public final class Entity
 
 
 
-    private final EntityKind kind;
     private final String id;
     private Point position;
     private final List<PImage> images;
@@ -28,8 +38,7 @@ public final class Entity
     private final int actionPeriod;
     private final int animationPeriod;
 
-    public Entity(
-            EntityKind kind,
+    public MinerNotFull(
             String id,
             Point position,
             List<PImage> images,
@@ -38,7 +47,6 @@ public final class Entity
             int actionPeriod,
             int animationPeriod)
     {
-        this.kind = kind;
         this.id = id;
         this.position = position;
         this.images = images;
@@ -50,12 +58,10 @@ public final class Entity
     }
 
     public PImage getCurrentImage() {
-            return getImages().get(getImageIndex());
+        return getImages().get(getImageIndex());
     }
 
-    public EntityKind getKind() {
-        return kind;
-    }
+
 
     public String getId() {
         return id;
@@ -120,14 +126,14 @@ public final class Entity
                 world.findNearest(this.position, EntityKind.BLACKSMITH);
 
         if (fullTarget.isPresent() && this.moveToFull(world,
-                                                 fullTarget.get(), scheduler))
+                fullTarget.get(), scheduler))
         {
             this.transformFull(world, scheduler, imageStore);
         }
         else {
             scheduler.scheduleEvent(this,
                     Factory.createActivityAction(this, world, imageStore),
-                          this.actionPeriod);
+                    this.actionPeriod);
         }
     }
 
@@ -442,20 +448,9 @@ public final class Entity
 
         return newPos;
     }
-    /*
-    public Action createAnimationAction(int repeatCount) {
-        return new Animation(this, null, null,
-                repeatCount);
-    }
-
-    public Action createActivityAction(
-            WorldModel world, ImageStore imageStore)
-    {
-        return new Activity(this, world, imageStore, 0);
-    }
-
-     */
 
 
+
+ */
 
 }
