@@ -415,9 +415,7 @@
 +moveToFull(): boolean  
 +moveToOreBlob(): boolean 
 +nextPositionMiner(): Point  
-+nextPositionOreBlob(): Point 
-++createAnimationAction(): Action   
-+createActivityAction(): Action    </y:MethodLabel>
++nextPositionOreBlob(): Point </y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -505,7 +503,11 @@ VEIN</y:AttributeLabel>
 +createOre(): Entity                         &lt;&lt;static&gt;&gt;
 +createOreBlob(): Entity                     &lt;&lt;static&gt;&gt;
 +createQuake(): Entity                       &lt;&lt;static&gt;&gt;
-+createVein(): Entity                        &lt;&lt;static&gt;&gt;</y:MethodLabel>
++createVein(): Entity                        &lt;&lt;static&gt;&gt;
++createAnimationAction(): Action 
+&lt;&lt;static&gt;&gt;  
++createActivityAction(): Action    
+&lt;&lt;static&gt;&gt;</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
