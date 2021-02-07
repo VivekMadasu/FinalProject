@@ -126,7 +126,7 @@ public final class Entity
         }
         else {
             scheduler.scheduleEvent(this,
-                          this.createActivityAction(world, imageStore),
+                    Factory.createActivityAction(this, world, imageStore),
                           this.actionPeriod);
         }
     }
@@ -145,7 +145,7 @@ public final class Entity
                 || !this.transformNotFull(world, scheduler, imageStore))
         {
             scheduler.scheduleEvent(this,
-                    this.createActivityAction(world, imageStore),
+                    Factory.createActivityAction(this, world, imageStore),
                     this.actionPeriod);
         }
     }
@@ -194,7 +194,7 @@ public final class Entity
         }
 
         scheduler.scheduleEvent(this,
-                this.createActivityAction(world, imageStore),
+                Factory.createActivityAction(this, world, imageStore),
                 nextPeriod);
     }
 
@@ -224,7 +224,7 @@ public final class Entity
         }
 
         scheduler.scheduleEvent(this,
-                this.createActivityAction(world, imageStore),
+                Factory.createActivityAction(this, world, imageStore),
                 this.actionPeriod);
     }
 
@@ -236,49 +236,48 @@ public final class Entity
         switch (this.kind) {
             case MINER_FULL:
                 scheduler.scheduleEvent(this,
-                        this.createActivityAction(world, imageStore),
+                        Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
                 scheduler.scheduleEvent(this,
-                        this.createAnimationAction(0),
+                        Factory.createAnimationAction(this, 0),
                         getAnimationPeriod());
                 break;
 
             case MINER_NOT_FULL:
                 scheduler.scheduleEvent(this,
-                        this.createActivityAction(world, imageStore),
+                        Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
                 scheduler.scheduleEvent(this,
-                        this.createAnimationAction(0),
+                        Factory.createAnimationAction(this, 0),
                         getAnimationPeriod());
                 break;
 
             case ORE:
                 scheduler.scheduleEvent(this,
-                        this.createActivityAction(world, imageStore),
+                        Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
                 break;
 
             case ORE_BLOB:
                 scheduler.scheduleEvent(this,
-                        this.createActivityAction(world, imageStore),
+                        Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
                 scheduler.scheduleEvent(this,
-                        this.createAnimationAction(0),
+                        Factory.createAnimationAction(this, 0),
                         getAnimationPeriod());
                 break;
 
             case QUAKE:
                 scheduler.scheduleEvent(this,
-                        this.createActivityAction(world, imageStore),
+                        Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
-                scheduler.scheduleEvent(this, this.createAnimationAction(
-                        Functions.QUAKE_ANIMATION_REPEAT_COUNT),
+                scheduler.scheduleEvent(this, Factory.createAnimationAction(
+                        this, Functions.QUAKE_ANIMATION_REPEAT_COUNT),
                         getAnimationPeriod());
                 break;
 
             case VEIN:
-                scheduler.scheduleEvent(this,
-                        this.createActivityAction(world, imageStore),
+                scheduler.scheduleEvent(this, Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
                 break;
 
@@ -443,7 +442,7 @@ public final class Entity
 
         return newPos;
     }
-
+    /*
     public Action createAnimationAction(int repeatCount) {
         return new Animation(this, null, null,
                 repeatCount);
@@ -454,5 +453,9 @@ public final class Entity
     {
         return new Activity(this, world, imageStore, 0);
     }
+
+     */
+
+
 
 }
