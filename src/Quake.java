@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Optional;
 
-public class Quake implements Entity, ActiveEntity {
+public class Quake implements Entity, ActiveEntity, AnimateEntity{
 
 
     private final String id;
@@ -58,17 +58,7 @@ public class Quake implements Entity, ActiveEntity {
 
 
     public int getAnimationPeriod() {
-        switch (this.kind) {
-            case MINER_FULL:
-            case MINER_NOT_FULL:
-            case ORE_BLOB:
-            case QUAKE:
-                return this.animationPeriod;
-            default:
-                throw new UnsupportedOperationException(
-                        String.format("getAnimationPeriod not supported for %s",
-                                this.kind));
-        }
+        return this.animationPeriod;
     }
 
     public void nextImage() {

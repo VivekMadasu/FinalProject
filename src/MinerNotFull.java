@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Optional;
 
-public class MinerNotFull implements Entity, ActiveEntity {
+public class MinerNotFull implements Entity, ActiveEntity, AnimateEntity, Movable, Transformable{
 
 
 
@@ -59,17 +59,7 @@ public class MinerNotFull implements Entity, ActiveEntity {
 
 
     public int getAnimationPeriod() {
-        switch (this.kind) {
-            case MINER_FULL:
-            case MINER_NOT_FULL:
-            case ORE_BLOB:
-            case QUAKE:
-                return this.animationPeriod;
-            default:
-                throw new UnsupportedOperationException(
-                        String.format("getAnimationPeriod not supported for %s",
-                                this.kind));
-        }
+        return this.animationPeriod;
     }
 
     public void nextImage() {
@@ -86,10 +76,10 @@ public class MinerNotFull implements Entity, ActiveEntity {
         Optional<Entity> notFullTarget =
                 world.findNearest(this.position, EntityKind.ORE);
 
-        if (!notFullTarget.isPresent() || !this.moveToNotFull(world,
+        if (!notFullTarget.isPresent() || !this.moveTo(world,
                 notFullTarget.get(),
                 scheduler)
-                || !this.transformNotFull(world, scheduler, imageStore))
+                || !this.transform(world, scheduler, imageStore))
         {
             scheduler.scheduleEvent(this,
                     Factory.createActivityAction(this, world, imageStore),
@@ -116,7 +106,7 @@ public class MinerNotFull implements Entity, ActiveEntity {
 
 
 
-    public boolean transformNotFull(
+    public boolean transform(
             WorldModel world,
             EventScheduler scheduler,
             ImageStore imageStore)
@@ -139,12 +129,12 @@ public class MinerNotFull implements Entity, ActiveEntity {
         return false;
     }
 
-    public boolean moveToNotFull(
+    public boolean moveTo(
             WorldModel world,
             Entity target,
             EventScheduler scheduler)
     {
-        if (this.position.adjacent(target.position)) {
+        if (this.position.adjacent(((MinerNotFull)target).position)) {
             this.resourceCount += 1;
             world.removeEntity(target);
             scheduler.unscheduleAllEvents(target);
@@ -152,7 +142,7 @@ public class MinerNotFull implements Entity, ActiveEntity {
             return true;
         }
         else {
-            Point nextPos = this.nextPositionMiner(world, target.position);
+            Point nextPos = this.nextPosition(world, ((MinerNotFull)target).position);
 
             if (!this.position.equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);
@@ -167,7 +157,7 @@ public class MinerNotFull implements Entity, ActiveEntity {
     }
 
 
-    public Point nextPositionMiner(
+    public Point nextPosition(
             WorldModel world, Point destPos)
     {
         int horiz = Integer.signum(destPos.getX() - this.position.getX());

@@ -3,7 +3,13 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Optional;
 
-public class OreBlob implements Entity, ActiveEntity {
+public class OreBlob implements Entity, ActiveEntity, AnimateEntity, Movable {
+
+    public static final String BLOB_KEY = "blob";
+    public static final String BLOB_ID_SUFFIX = " -- blob";
+    public static final int BLOB_PERIOD_SCALE = 4;
+    public static final int BLOB_ANIMATION_MIN = 50;
+    public static final int BLOB_ANIMATION_MAX = 150;
 
     private final String id;
     private Point position;
@@ -57,17 +63,7 @@ public class OreBlob implements Entity, ActiveEntity {
 
 
     public int getAnimationPeriod() {
-        switch (this.kind) {
-            case MINER_FULL:
-            case MINER_NOT_FULL:
-            case ORE_BLOB:
-            case QUAKE:
-                return this.animationPeriod;
-            default:
-                throw new UnsupportedOperationException(
-                        String.format("getAnimationPeriod not supported for %s",
-                                this.kind));
-        }
+        return this.animationPeriod;
     }
 
     public void nextImage() {
@@ -86,9 +82,9 @@ public class OreBlob implements Entity, ActiveEntity {
         long nextPeriod = this.actionPeriod;
 
         if (blobTarget.isPresent()) {
-            Point tgtPos = blobTarget.get().position;
+            Point tgtPos = ((OreBlob)blobTarget.get()).position;
 
-            if (this.moveToOreBlob(world, blobTarget.get(), scheduler)) {
+            if (this.moveTo(world, blobTarget.get(), scheduler)) {
                 Entity quake = Factory.createQuake(tgtPos,
                         imageStore.getImageList(Functions.QUAKE_KEY));
 
@@ -121,18 +117,18 @@ public class OreBlob implements Entity, ActiveEntity {
 
 
 
-    public boolean moveToOreBlob(
+    public boolean moveTo(
             WorldModel world,
             Entity target,
             EventScheduler scheduler)
     {
-        if (this.position.adjacent(target.position)) {
+        if (this.position.adjacent(((OreBlob)target).position)) {
             world.removeEntity(target);
             scheduler.unscheduleAllEvents(target);
             return true;
         }
         else {
-            Point nextPos = this.nextPositionOreBlob(world, target.position);
+            Point nextPos = this.nextPosition(world, ((OreBlob)target).position);
 
             if (!this.position.equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);
@@ -148,7 +144,7 @@ public class OreBlob implements Entity, ActiveEntity {
 
 
 
-    public Point nextPositionOreBlob(
+    public Point nextPosition(
             WorldModel world, Point destPos)
     {
         int horiz = Integer.signum(destPos.getX() - this.position.getX());
@@ -156,15 +152,17 @@ public class OreBlob implements Entity, ActiveEntity {
 
         Optional<Entity> occupant = world.getOccupant(newPos);
 
-        if (horiz == 0 || (occupant.isPresent() && !(occupant.get().kind
-                == EntityKind.ORE)))
+        //if (horiz == 0 || (occupant.isPresent() && !(occupant.get().kind
+          //      == EntityKind.ORE)))
+        if (horiz == 0 || (occupant.isPresent() && !(occupant.get() instanceof Ore)))
         {
             int vert = Integer.signum(destPos.getY() - this.position.getY());
             newPos = new Point(this.position.getX(), this.position.getY() + vert);
             occupant = world.getOccupant(newPos);
 
-            if (vert == 0 || (occupant.isPresent() && !(occupant.get().kind
-                    == EntityKind.ORE)))
+            //if (vert == 0 || (occupant.isPresent() && !(occupant.get().kind
+              //      == EntityKind.ORE)))
+            if (vert == 0 || (occupant.isPresent() && !(occupant.get() instanceof Ore)))
             {
                 newPos = this.position;
             }

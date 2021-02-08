@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Optional;
 
-public class Vein implements Entity, ActiveEntity {
+public class Vein implements Entity, ActiveEntity{
 
 
     private final String id;
@@ -68,9 +68,9 @@ public class Vein implements Entity, ActiveEntity {
         Optional<Point> openPt = world.findOpenAround(this.position);
 
         if (openPt.isPresent()) {
-            Entity ore = Factory.createOre(Entity.ORE_ID_PREFIX + this.id, openPt.get(),
-                    Entity.ORE_CORRUPT_MIN + Functions.rand.nextInt(
-                            Entity.ORE_CORRUPT_MAX - Entity.ORE_CORRUPT_MIN),
+            Entity ore = Factory.createOre(Ore.ORE_ID_PREFIX + this.id, openPt.get(),
+                    Ore.ORE_CORRUPT_MIN + Functions.rand.nextInt(
+                            Ore.ORE_CORRUPT_MAX - Ore.ORE_CORRUPT_MIN),
                     imageStore.getImageList(Functions.ORE_KEY));
             world.addEntity(ore);
             ((ActiveEntity)ore).scheduleActions(scheduler, world, imageStore);

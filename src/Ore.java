@@ -5,7 +5,9 @@ import java.util.Optional;
 
 public class Ore implements Entity, ActiveEntity {
 
-
+    public static final String ORE_ID_PREFIX = "ore -- ";
+    public static final int ORE_CORRUPT_MIN = 20000;
+    public static final int ORE_CORRUPT_MAX = 30000;
 
 
     private final String id;
@@ -73,12 +75,12 @@ public class Ore implements Entity, ActiveEntity {
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
 
-        Entity blob = Factory.createOreBlob(this.id + Entity.BLOB_ID_SUFFIX, pos,
-                this.actionPeriod / Entity.BLOB_PERIOD_SCALE,
-                Entity.BLOB_ANIMATION_MIN + Functions.rand.nextInt(
-                        Entity.BLOB_ANIMATION_MAX
-                                - Entity.BLOB_ANIMATION_MIN),
-                imageStore.getImageList(Entity.BLOB_KEY));
+        Entity blob = Factory.createOreBlob(this.id + OreBlob.BLOB_ID_SUFFIX, pos,
+                this.actionPeriod / OreBlob.BLOB_PERIOD_SCALE,
+                OreBlob.BLOB_ANIMATION_MIN + Functions.rand.nextInt(
+                        OreBlob.BLOB_ANIMATION_MAX
+                                - OreBlob.BLOB_ANIMATION_MIN),
+                imageStore.getImageList(OreBlob.BLOB_KEY));
 
         world.addEntity(blob);
         ((ActiveEntity)blob).scheduleActions(scheduler, world, imageStore);

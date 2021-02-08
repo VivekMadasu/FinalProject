@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Optional;
 
-public class MinerFull implements Entity, ActiveEntity {
+public class MinerFull implements Entity, ActiveEntity, AnimateEntity, Movable, Transformable {
 
 
     private final String id;
@@ -59,17 +59,7 @@ public class MinerFull implements Entity, ActiveEntity {
 
 
     public int getAnimationPeriod() {
-        switch (this.kind) {
-            case MINER_FULL:
-            case MINER_NOT_FULL:
-            case ORE_BLOB:
-            case QUAKE:
-                return this.animationPeriod;
-            default:
-                throw new UnsupportedOperationException(
-                        String.format("getAnimationPeriod not supported for %s",
-                                this.kind));
-        }
+        return this.animationPeriod;
     }
 
     public void nextImage() {
@@ -84,10 +74,10 @@ public class MinerFull implements Entity, ActiveEntity {
         Optional<Entity> fullTarget =
                 world.findNearest(this.position, EntityKind.BLACKSMITH);
 
-        if (fullTarget.isPresent() && this.moveToFull(world,
+        if (fullTarget.isPresent() && this.moveTo(world,
                 fullTarget.get(), scheduler))
         {
-            this.transformFull(world, scheduler, imageStore);
+            this.transform(world, scheduler, imageStore);
         }
         else {
             scheduler.scheduleEvent(this,
@@ -111,7 +101,7 @@ public class MinerFull implements Entity, ActiveEntity {
                 getAnimationPeriod());
     }
 
-    public void transformFull(
+    public boolean transform(
             WorldModel world,
             EventScheduler scheduler,
             ImageStore imageStore)
@@ -126,22 +116,24 @@ public class MinerFull implements Entity, ActiveEntity {
 
         world.addEntity(miner);
         ((ActiveEntity)miner).scheduleActions(scheduler, world, imageStore);
+
+        return true; // always transform
     }
 
 
 
 
 
-    public boolean moveToFull(
+    public boolean moveTo(
             WorldModel world,
             Entity target,
             EventScheduler scheduler)
     {
-        if (this.position.adjacent(target.position)) {
+        if (this.position.adjacent(((MinerFull)target).position)) {
             return true;
         }
         else {
-            Point nextPos = this.nextPositionMiner(world, target.position);
+            Point nextPos = this.nextPosition(world, ((MinerFull)target).position);
 
             if (!this.position.equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);
@@ -157,7 +149,7 @@ public class MinerFull implements Entity, ActiveEntity {
 
 
 
-    public Point nextPositionMiner(
+    public Point nextPosition(
             WorldModel world, Point destPos)
     {
         int horiz = Integer.signum(destPos.getX() - this.position.getX());
@@ -175,7 +167,6 @@ public class MinerFull implements Entity, ActiveEntity {
         return newPos;
     }
 
-=
 
 
 

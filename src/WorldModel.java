@@ -13,29 +13,6 @@ public final class WorldModel
     private Entity occupancy[][];
     private Set<Entity> entities;
 
-    public boolean processLine(
-            String line, ImageStore imageStore)
-    {
-        String[] properties = line.split("\\s");
-        if (properties.length > 0) {
-            switch (properties[Functions.PROPERTY_KEY]) {
-                case Functions.BGND_KEY:
-                    return parseBackground(properties, imageStore);
-                case  Functions.MINER_KEY:
-                    return parseMiner(properties, imageStore);
-                case  Functions.OBSTACLE_KEY:
-                    return parseObstacle(properties, imageStore);
-                case  Functions.ORE_KEY:
-                    return parseOre(properties, imageStore);
-                case  Functions.SMITH_KEY:
-                    return parseSmith(properties, imageStore);
-                case  Functions.VEIN_KEY:
-                    return parseVein(properties, imageStore);
-            }
-        }
-
-        return false;
-    }
 
 
     public void load(
@@ -44,7 +21,7 @@ public final class WorldModel
         int lineNumber = 0;
         while (in.hasNextLine()) {
             try {
-                if (!this.processLine(in.nextLine(), imageStore)) {
+                if (!Functions.processLine(in.nextLine(), this, imageStore)) {
                     System.err.println(String.format("invalid entry on line %d",
                                                      lineNumber));
                 }
