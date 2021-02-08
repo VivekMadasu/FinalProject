@@ -57,8 +57,8 @@ public class Factory {
     public static Entity createQuake(
             Point position, List<PImage> images)
     {
-        return new Quake(Functions.QUAKE_ID, position, images, 0, 0,
-                Functions.QUAKE_ACTION_PERIOD, Functions.QUAKE_ANIMATION_PERIOD);
+        return new Quake(Quake.QUAKE_ID, position, images, 0, 0,
+                Quake.QUAKE_ACTION_PERIOD, Quake.QUAKE_ANIMATION_PERIOD);
     }
 
     public static Entity createVein(

@@ -21,7 +21,7 @@ public final class WorldModel
         int lineNumber = 0;
         while (in.hasNextLine()) {
             try {
-                if (!Functions.processLine(in.nextLine(), this, imageStore)) {
+                if (!WorldLoading.processLine(in.nextLine(), this, imageStore)) {
                     System.err.println(String.format("invalid entry on line %d",
                                                      lineNumber));
                 }

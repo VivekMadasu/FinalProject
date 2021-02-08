@@ -5,6 +5,11 @@ import java.util.Optional;
 
 public class Quake implements Entity, ActiveEntity, AnimateEntity{
 
+    public static final String QUAKE_KEY = "quake";
+    public static final String QUAKE_ID = "quake";
+    public static final int QUAKE_ACTION_PERIOD = 1100;
+    public static final int QUAKE_ANIMATION_PERIOD = 100;
+    public static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
 
     private final String id;
     private Point position;
@@ -87,7 +92,7 @@ public class Quake implements Entity, ActiveEntity, AnimateEntity{
                 Factory.createActivityAction(this, world, imageStore),
                 this.actionPeriod);
         scheduler.scheduleEvent(this, Factory.createAnimationAction(
-                this, Functions.QUAKE_ANIMATION_REPEAT_COUNT),
+                this, QUAKE_ANIMATION_REPEAT_COUNT),
                 getAnimationPeriod());
 
     }

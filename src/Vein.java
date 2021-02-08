@@ -2,9 +2,11 @@ import processing.core.PImage;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 public class Vein implements Entity, ActiveEntity{
 
+    public static final Random rand = new Random();
 
     private final String id;
     private Point position;
@@ -69,9 +71,9 @@ public class Vein implements Entity, ActiveEntity{
 
         if (openPt.isPresent()) {
             Entity ore = Factory.createOre(Ore.ORE_ID_PREFIX + this.id, openPt.get(),
-                    Ore.ORE_CORRUPT_MIN + Functions.rand.nextInt(
+                    Ore.ORE_CORRUPT_MIN + rand.nextInt(
                             Ore.ORE_CORRUPT_MAX - Ore.ORE_CORRUPT_MIN),
-                    imageStore.getImageList(Functions.ORE_KEY));
+                    imageStore.getImageList(WorldLoading.ORE_KEY));
             world.addEntity(ore);
             ((ActiveEntity)ore).scheduleActions(scheduler, world, imageStore);
         }

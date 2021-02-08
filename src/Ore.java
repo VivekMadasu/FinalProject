@@ -2,8 +2,11 @@ import processing.core.PImage;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 public class Ore implements Entity, ActiveEntity {
+
+    public static final Random rand = new Random();
 
     public static final String ORE_ID_PREFIX = "ore -- ";
     public static final int ORE_CORRUPT_MIN = 20000;
@@ -77,7 +80,7 @@ public class Ore implements Entity, ActiveEntity {
 
         Entity blob = Factory.createOreBlob(this.id + OreBlob.BLOB_ID_SUFFIX, pos,
                 this.actionPeriod / OreBlob.BLOB_PERIOD_SCALE,
-                OreBlob.BLOB_ANIMATION_MIN + Functions.rand.nextInt(
+                OreBlob.BLOB_ANIMATION_MIN + rand.nextInt(
                         OreBlob.BLOB_ANIMATION_MAX
                                 - OreBlob.BLOB_ANIMATION_MIN),
                 imageStore.getImageList(OreBlob.BLOB_KEY));

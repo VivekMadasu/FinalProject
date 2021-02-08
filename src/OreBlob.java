@@ -86,7 +86,7 @@ public class OreBlob implements Entity, ActiveEntity, AnimateEntity, Movable {
 
             if (this.moveTo(world, blobTarget.get(), scheduler)) {
                 Entity quake = Factory.createQuake(tgtPos,
-                        imageStore.getImageList(Functions.QUAKE_KEY));
+                        imageStore.getImageList(Quake.QUAKE_KEY));
 
                 world.addEntity(quake);
                 nextPeriod += this.actionPeriod;
