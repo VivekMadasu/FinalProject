@@ -74,7 +74,7 @@ public class MinerNotFull implements Entity, ActiveEntity, AnimateEntity, Movabl
             EventScheduler scheduler)
     {
         Optional<Entity> notFullTarget =
-                world.findNearest(this.position, EntityKind.ORE);
+                world.findNearest(this.position, Ore.class);
 
         if (!notFullTarget.isPresent() || !this.moveTo(world,
                 notFullTarget.get(),
@@ -134,7 +134,7 @@ public class MinerNotFull implements Entity, ActiveEntity, AnimateEntity, Movabl
             Entity target,
             EventScheduler scheduler)
     {
-        if (this.position.adjacent(((MinerNotFull)target).position)) {
+        if (this.position.adjacent(target.getPosition())) {
             this.resourceCount += 1;
             world.removeEntity(target);
             scheduler.unscheduleAllEvents(target);
@@ -142,7 +142,7 @@ public class MinerNotFull implements Entity, ActiveEntity, AnimateEntity, Movabl
             return true;
         }
         else {
-            Point nextPos = this.nextPosition(world, ((MinerNotFull)target).position);
+            Point nextPos = this.nextPosition(world, target.getPosition());
 
             if (!this.position.equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);

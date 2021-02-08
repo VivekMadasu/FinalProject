@@ -72,7 +72,7 @@ public class MinerFull implements Entity, ActiveEntity, AnimateEntity, Movable, 
             EventScheduler scheduler)
     {
         Optional<Entity> fullTarget =
-                world.findNearest(this.position, EntityKind.BLACKSMITH);
+                world.findNearest(this.position, Blacksmith.class);
 
         if (fullTarget.isPresent() && this.moveTo(world,
                 fullTarget.get(), scheduler))
@@ -129,11 +129,11 @@ public class MinerFull implements Entity, ActiveEntity, AnimateEntity, Movable, 
             Entity target,
             EventScheduler scheduler)
     {
-        if (this.position.adjacent(((MinerFull)target).position)) {
+        if (this.position.adjacent(target.getPosition())) {
             return true;
         }
         else {
-            Point nextPos = this.nextPosition(world, ((MinerFull)target).position);
+            Point nextPos = this.nextPosition(world, target.getPosition());
 
             if (!this.position.equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);

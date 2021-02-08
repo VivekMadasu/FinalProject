@@ -78,11 +78,11 @@ public class OreBlob implements Entity, ActiveEntity, AnimateEntity, Movable {
             EventScheduler scheduler)
     {
         Optional<Entity> blobTarget =
-                world.findNearest(this.position, EntityKind.VEIN);
+                world.findNearest(this.position, Vein.class);
         long nextPeriod = this.actionPeriod;
 
         if (blobTarget.isPresent()) {
-            Point tgtPos = ((OreBlob)blobTarget.get()).position;
+            Point tgtPos = blobTarget.get().getPosition();
 
             if (this.moveTo(world, blobTarget.get(), scheduler)) {
                 Entity quake = Factory.createQuake(tgtPos,
@@ -122,13 +122,13 @@ public class OreBlob implements Entity, ActiveEntity, AnimateEntity, Movable {
             Entity target,
             EventScheduler scheduler)
     {
-        if (this.position.adjacent(((OreBlob)target).position)) {
+        if (this.position.adjacent(target.getPosition())) {
             world.removeEntity(target);
             scheduler.unscheduleAllEvents(target);
             return true;
         }
         else {
-            Point nextPos = this.nextPosition(world, ((OreBlob)target).position);
+            Point nextPos = this.nextPosition(world, target.getPosition());
 
             if (!this.position.equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);
