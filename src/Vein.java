@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Vein implements Entity, ActiveEntity{
 
-    public static final Random rand = new Random();
+    private static final Random rand = new Random();
 
     private final String id;
     private Point position;

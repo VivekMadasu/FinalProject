@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Ore implements Entity, ActiveEntity {
 
-    public static final Random rand = new Random();
+    private static final Random rand = new Random();
 
     public static final String ORE_ID_PREFIX = "ore -- ";
     public static final int ORE_CORRUPT_MIN = 20000;
