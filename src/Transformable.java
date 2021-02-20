@@ -1,5 +1,39 @@
-public interface Transformable {
-    public boolean transform(
+import processing.core.PImage;
+
+import java.util.List;
+
+public abstract class Transformable extends Movable {
+
+    private final int resourceLimit;
+    private int resourceCount;
+
+    public Transformable(
+            String id,
+            Point position,
+            List<PImage> images,
+            int resourceLimit,
+            int resourceCount,
+            int actionPeriod,
+            int animationPeriod){
+        super(id, position, images, actionPeriod, animationPeriod);
+
+        this.resourceCount = resourceCount;
+        this.resourceLimit = resourceLimit;
+    }
+
+    public int getResourceLimit() {
+        return resourceLimit;
+    }
+
+    public int getResourceCount() {
+        return resourceCount;
+    }
+
+    public void setResourceCount(int resourceCount) {
+        this.resourceCount = resourceCount;
+    }
+
+    public abstract boolean transform(
             WorldModel world,
             EventScheduler scheduler,
             ImageStore imageStore);

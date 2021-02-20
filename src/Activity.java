@@ -1,47 +1,27 @@
-public class Activity implements Action{
-    private final Entity entity;
-    private final WorldModel world;
-    private final ImageStore imageStore;
-    private final int repeatCount;
+public class Activity extends Action{
 
-
-
-    public Entity getEntity() {
-        return entity;
-    }
-
-    public WorldModel getWorld() {
-        return world;
-    }
-
-    public ImageStore getImageStore() {
-        return imageStore;
-    }
-
-    public int getRepeatCount() {
-        return repeatCount;
-    }
+    private final ActiveEntity activeEntity;
 
     public Activity(
-            Entity entity,
+            ActiveEntity entity,
             WorldModel world,
             ImageStore imageStore,
             int repeatCount)
     {
-        this.entity = entity;
-        this.world = world;
-        this.imageStore = imageStore;
-        this.repeatCount = repeatCount;
+        super(world, imageStore, repeatCount);
+        this.activeEntity = entity;
     }
 
 
+    protected ActiveEntity getActiveEntity() {
+        return activeEntity;
+    }
 
     public void executeAction(EventScheduler scheduler)
     {
-        if (entity instanceof ActiveEntity){
-            ((ActiveEntity) entity).executeActivity(this.world,
-                this.imageStore, scheduler);
-        }
+        getActiveEntity().executeActivity(this.getWorld(),
+                this.getImageStore(), scheduler);
+
     }
 
 }
