@@ -22,24 +22,24 @@ public abstract class Entity
     }
 
 
-    public PImage getCurrentImage() {
+    protected PImage getCurrentImage() {
         return getImages().get(getImageIndex());
     }
 
-    public String getId() {
+    protected String getId() {
         return id;
     }
 
-    public Point getPosition() {
+    protected Point getPosition() {
         return position;
     }
 
-    public void setPosition(Point position) {
+    protected void setPosition(Point position) {
         this.position = position;
 
     }
 
-    public List<PImage> getImages() {
+    protected List<PImage> getImages() {
         return images;
     }
 

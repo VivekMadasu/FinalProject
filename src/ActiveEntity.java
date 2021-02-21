@@ -16,15 +16,15 @@ public abstract class ActiveEntity extends Entity{
         this.actionPeriod = actionPeriod;
     }
 
-    public int getActionPeriod() {
+    protected int getActionPeriod() {
         return actionPeriod;
     }
 
-    public abstract void executeActivity(WorldModel world,
+    protected abstract void executeActivity(WorldModel world,
                                          ImageStore imageStore,
                                          EventScheduler scheduler);
 
-    public abstract void scheduleActions(
+    protected abstract void scheduleActions(
             EventScheduler scheduler,
             WorldModel world,
             ImageStore imageStore);

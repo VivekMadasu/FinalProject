@@ -5,8 +5,6 @@ import java.util.Optional;
 
 public class Obstacle extends Entity {
 
-
-
     public Obstacle(
             String id,
             Point position,

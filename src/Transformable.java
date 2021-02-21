@@ -21,19 +21,19 @@ public abstract class Transformable extends Movable {
         this.resourceLimit = resourceLimit;
     }
 
-    public int getResourceLimit() {
+    protected int getResourceLimit() {
         return resourceLimit;
     }
 
-    public int getResourceCount() {
+    protected int getResourceCount() {
         return resourceCount;
     }
 
-    public void setResourceCount(int resourceCount) {
+    protected void setResourceCount(int resourceCount) {
         this.resourceCount = resourceCount;
     }
 
-    public abstract boolean transform(
+    protected abstract boolean transform(
             WorldModel world,
             EventScheduler scheduler,
             ImageStore imageStore);

@@ -18,10 +18,6 @@ public class MinerNotFull extends Transformable{
         super(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod);
     }
 
-
-
-
-
     public void executeActivity(
             WorldModel world,
             ImageStore imageStore,

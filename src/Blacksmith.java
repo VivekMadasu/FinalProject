@@ -4,7 +4,6 @@ import java.util.List;
 
 public class Blacksmith extends Entity{
 
-
     public Blacksmith(
             String id,
             Point position,
@@ -12,7 +11,6 @@ public class Blacksmith extends Entity{
 
     {
         super(id, position, images);
-
     }
 
 

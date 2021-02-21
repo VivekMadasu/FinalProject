@@ -14,11 +14,11 @@ public abstract class Movable extends AnimateEntity {
 
 
 
-    public abstract boolean moveTo(
+    protected abstract boolean moveTo(
             WorldModel world,
             Entity target,
             EventScheduler scheduler);
 
-    public abstract Point nextPosition(
+    protected abstract Point nextPosition(
             WorldModel world, Point destPos);
 }

@@ -18,12 +18,12 @@ public abstract class AnimateEntity extends ActiveEntity {
    }
 
 
-    public int getAnimationPeriod() {
+    protected int getAnimationPeriod() {
         return this.animationPeriod;
     }
 
 
-    public void nextImage() {
+    protected void nextImage() {
         this.setImageIndex((this.getImageIndex()+ 1) % this.getImages().size());
     }
 }

@@ -4,9 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class MinerFull extends Transformable {
-
-
-
     public MinerFull(
             String id,
             Point position,
@@ -17,11 +14,7 @@ public class MinerFull extends Transformable {
             int animationPeriod)
     {
         super(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod);
-
-
     }
-
-
 
 
     public void executeActivity(
