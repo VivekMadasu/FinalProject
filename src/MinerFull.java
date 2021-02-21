@@ -37,21 +37,6 @@ public class MinerFull extends Transformable {
         }
     }
 
-
-
-    public void scheduleActions(
-            EventScheduler scheduler,
-            WorldModel world,
-            ImageStore imageStore)
-    {
-        scheduler.scheduleEvent(this,
-                Factory.createActivityAction(this, world, imageStore),
-                this.getActionPeriod());
-        scheduler.scheduleEvent(this,
-                Factory.createAnimationAction(this, 0),
-                getAnimationPeriod());
-    }
-
     public boolean transform(
             WorldModel world,
             EventScheduler scheduler,

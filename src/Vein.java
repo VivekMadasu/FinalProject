@@ -42,15 +42,5 @@ public class Vein extends ActiveEntity{
                 this.getActionPeriod());
     }
 
-    public void scheduleActions(
-            EventScheduler scheduler,
-            WorldModel world,
-            ImageStore imageStore)
-    {
-        scheduler.scheduleEvent(this, Factory.createActivityAction(this, world, imageStore),
-                this.getActionPeriod());
-    }
-
-
 
 }

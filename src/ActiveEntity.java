@@ -24,8 +24,13 @@ public abstract class ActiveEntity extends Entity{
                                          ImageStore imageStore,
                                          EventScheduler scheduler);
 
-    protected abstract void scheduleActions(
+    public void scheduleActions(
             EventScheduler scheduler,
             WorldModel world,
-            ImageStore imageStore);
+            ImageStore imageStore)
+    {
+        scheduler.scheduleEvent(this,
+                Factory.createActivityAction(this, world, imageStore),
+                this.getActionPeriod());
+    }
 }
