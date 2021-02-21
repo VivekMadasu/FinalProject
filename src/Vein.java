@@ -29,12 +29,12 @@ public class Vein extends ActiveEntity{
         Optional<Point> openPt = world.findOpenAround(this.getPosition());
 
         if (openPt.isPresent()) {
-            Entity ore = Factory.createOre(Ore.ORE_ID_PREFIX + this.getId(), openPt.get(),
+            Ore ore = Factory.createOre(Ore.ORE_ID_PREFIX + this.getId(), openPt.get(),
                     Ore.ORE_CORRUPT_MIN + rand.nextInt(
                             Ore.ORE_CORRUPT_MAX - Ore.ORE_CORRUPT_MIN),
                     imageStore.getImageList(WorldLoading.ORE_KEY));
             world.addEntity(ore);
-            ((ActiveEntity)ore).scheduleActions(scheduler, world, imageStore);
+            ore.scheduleActions(scheduler, world, imageStore);
         }
 
         scheduler.scheduleEvent(this,

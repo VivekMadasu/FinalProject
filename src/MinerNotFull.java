@@ -62,7 +62,7 @@ public class MinerNotFull extends Transformable{
             ImageStore imageStore)
     {
         if (this.getResourceCount() >= this.getResourceLimit()) {
-            Entity miner = Factory.createMinerFull(this.getId(), this.getResourceLimit(),
+            MinerFull miner = Factory.createMinerFull(this.getId(), this.getResourceLimit(),
                     this.getPosition(), this.getActionPeriod(),
                     this.getAnimationPeriod(),
                     this.getImages());
@@ -71,7 +71,7 @@ public class MinerNotFull extends Transformable{
             scheduler.unscheduleAllEvents(this);
 
             world.addEntity(miner);
-            ((ActiveEntity)miner).scheduleActions(scheduler, world, imageStore);
+            miner.scheduleActions(scheduler, world, imageStore);
 
             return true;
         }

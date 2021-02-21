@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Factory {
 
-    public static Entity createMinerFull(
+    public static MinerFull createMinerFull(
             String id,
             int resourceLimit,
             Point position,
@@ -17,7 +17,7 @@ public class Factory {
                 animationPeriod);
     }
 
-    public static Entity createMinerNotFull(
+    public static MinerNotFull createMinerNotFull(
             String id,
             int resourceLimit,
             Point position,
@@ -35,13 +35,13 @@ public class Factory {
         return new Obstacle(id, position, images);
     }
 
-    public static Entity createOre(
+    public static Ore createOre(
             String id, Point position, int actionPeriod, List<PImage> images)
     {
         return new Ore(id, position, images, actionPeriod);
     }
 
-    public static Entity createOreBlob(
+    public static OreBlob createOreBlob(
             String id,
             Point position,
             int actionPeriod,
@@ -51,7 +51,7 @@ public class Factory {
         return new OreBlob(id, position, images, actionPeriod, animationPeriod);
     }
 
-    public static Entity createQuake(
+    public static Quake createQuake(
             Point position, List<PImage> images)
     {
         return new Quake(Quake.QUAKE_ID, position, images,

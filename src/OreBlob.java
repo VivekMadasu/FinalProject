@@ -38,12 +38,12 @@ public class OreBlob extends Movable {
             Point tgtPos = blobTarget.get().getPosition();
 
             if (this.moveTo(world, blobTarget.get(), scheduler)) {
-                Entity quake = Factory.createQuake(tgtPos,
+                Quake quake = Factory.createQuake(tgtPos,
                         imageStore.getImageList(Quake.QUAKE_KEY));
 
                 world.addEntity(quake);
                 nextPeriod += this.getActionPeriod();
-                ((ActiveEntity)quake).scheduleActions(scheduler, world, imageStore);
+                quake.scheduleActions(scheduler, world, imageStore);
             }
         }
 

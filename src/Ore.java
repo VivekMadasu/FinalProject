@@ -37,7 +37,7 @@ public class Ore extends ActiveEntity {
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
 
-        Entity blob = Factory.createOreBlob(this.getId() + OreBlob.BLOB_ID_SUFFIX, pos,
+        OreBlob blob = Factory.createOreBlob(this.getId() + OreBlob.BLOB_ID_SUFFIX, pos,
                 this.getActionPeriod() / OreBlob.BLOB_PERIOD_SCALE,
                 OreBlob.BLOB_ANIMATION_MIN + rand.nextInt(
                         OreBlob.BLOB_ANIMATION_MAX
@@ -45,7 +45,7 @@ public class Ore extends ActiveEntity {
                 imageStore.getImageList(OreBlob.BLOB_KEY));
 
         world.addEntity(blob);
-        ((ActiveEntity)blob).scheduleActions(scheduler, world, imageStore);
+        blob.scheduleActions(scheduler, world, imageStore);
     }
 
 

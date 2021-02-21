@@ -57,7 +57,7 @@ public class MinerFull extends Transformable {
             EventScheduler scheduler,
             ImageStore imageStore)
     {
-        Entity miner = Factory.createMinerNotFull(this.getId(), this.getResourceLimit(),
+        MinerNotFull miner = Factory.createMinerNotFull(this.getId(), this.getResourceLimit(),
                 this.getPosition(), this.getActionPeriod(),
                 this.getAnimationPeriod(),
                 this.getImages());
@@ -66,7 +66,7 @@ public class MinerFull extends Transformable {
         scheduler.unscheduleAllEvents(this);
 
         world.addEntity(miner);
-        ((ActiveEntity)miner).scheduleActions(scheduler, world, imageStore);
+        miner.scheduleActions(scheduler, world, imageStore);
 
         return true; // always transform
     }
