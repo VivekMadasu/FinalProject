@@ -27,15 +27,17 @@ public abstract class AnimateEntity extends ActiveEntity {
         this.setImageIndex((this.getImageIndex()+ 1) % this.getImages().size());
     }
 
-    public void scheduleActions(
+    protected void scheduleActions(
             EventScheduler scheduler,
             WorldModel world,
             ImageStore imageStore)
     {
         super.scheduleActions(scheduler, world, imageStore);
         scheduler.scheduleEvent(this,
-                Factory.createAnimationAction(this, 0),
+                Factory.createAnimationAction(this, _scheduleActionsHelper()),
                 getAnimationPeriod());
     }
+
+    protected abstract int _scheduleActionsHelper();
 
 }

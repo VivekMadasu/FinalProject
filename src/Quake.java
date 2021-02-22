@@ -26,10 +26,6 @@ public class Quake extends AnimateEntity{
 
     }
 
-
-
-
-
     public void executeActivity(
             WorldModel world,
             ImageStore imageStore,
@@ -39,23 +35,8 @@ public class Quake extends AnimateEntity{
         world.removeEntity(this);
     }
 
-
-
-    public void scheduleActions(
-            EventScheduler scheduler,
-            WorldModel world,
-            ImageStore imageStore)
-    {
-        scheduler.scheduleEvent(this,
-                Factory.createActivityAction(this, world, imageStore),
-                this.getActionPeriod());
-        scheduler.scheduleEvent(this, Factory.createAnimationAction(
-                this, QUAKE_ANIMATION_REPEAT_COUNT),
-                getAnimationPeriod());
-
+    public int _scheduleActionsHelper(){
+        return QUAKE_ANIMATION_REPEAT_COUNT;
     }
-
-
-
 
 }

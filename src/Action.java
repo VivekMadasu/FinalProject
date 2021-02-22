@@ -28,6 +28,6 @@ public abstract class Action
         return repeatCount;
     }
 
-    public abstract void executeAction(EventScheduler scheduler);
+    protected abstract void executeAction(EventScheduler scheduler);
 
 }

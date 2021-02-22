@@ -24,7 +24,7 @@ public abstract class ActiveEntity extends Entity{
                                          ImageStore imageStore,
                                          EventScheduler scheduler);
 
-    public void scheduleActions(
+    protected void scheduleActions(
             EventScheduler scheduler,
             WorldModel world,
             ImageStore imageStore)
@@ -33,4 +33,5 @@ public abstract class ActiveEntity extends Entity{
                 Factory.createActivityAction(this, world, imageStore),
                 this.getActionPeriod());
     }
+
 }

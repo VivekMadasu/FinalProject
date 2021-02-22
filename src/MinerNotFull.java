@@ -49,11 +49,11 @@ public class MinerNotFull extends Transformable{
                     this.getAnimationPeriod(),
                     this.getImages());
 
-            world.removeEntity(this);
-            scheduler.unscheduleAllEvents(this);
-
-            world.addEntity(miner);
-            miner.scheduleActions(scheduler, world, imageStore);
+            super.finishTransform(
+                    miner,
+                    world,
+                    scheduler,
+                    imageStore);
 
             return true;
         }
@@ -61,51 +61,19 @@ public class MinerNotFull extends Transformable{
         return false;
     }
 
-    public boolean moveTo(
-            WorldModel world,
-            Entity target,
-            EventScheduler scheduler)
-    {
-        if (this.getPosition().adjacent(target.getPosition())) {
-            setResourceCount(this.getResourceCount() + 1) ;
-            world.removeEntity(target);
-            scheduler.unscheduleAllEvents(target);
 
-            return true;
-        }
-        else {
-            Point nextPos = this.nextPosition(world, target.getPosition());
-
-            if (!this.getPosition().equals(nextPos)) {
-                Optional<Entity> occupant = world.getOccupant(nextPos);
-                if (occupant.isPresent()) {
-                    scheduler.unscheduleAllEvents(occupant.get());
-                }
-
-                world.moveEntity(this, nextPos);
-            }
-            return false;
-        }
+    public void moveToHelper(WorldModel world,
+                             Entity target,
+                             EventScheduler scheduler){
+        setResourceCount(this.getResourceCount() + 1) ;
+        world.removeEntity(target);
+        scheduler.unscheduleAllEvents(target);
     }
 
 
-    public Point nextPosition(
-            WorldModel world, Point destPos)
-    {
-        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
-        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
 
-        if (horiz == 0 || world.isOccupied(newPos)) {
-            int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
-            newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
 
-            if (vert == 0 || world.isOccupied(newPos)) {
-                newPos = this.getPosition();
-            }
-        }
 
-        return newPos;
-    }
 
 
 

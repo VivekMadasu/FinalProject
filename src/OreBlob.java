@@ -5,6 +5,7 @@ import java.util.Optional;
 
 public class OreBlob extends Movable {
 
+
     public static final String BLOB_KEY = "blob";
     public static final String BLOB_ID_SUFFIX = " -- blob";
     public static final int BLOB_PERIOD_SCALE = 4;
@@ -53,31 +54,32 @@ public class OreBlob extends Movable {
     }
 
 
-    public boolean moveTo(
-            WorldModel world,
-            Entity target,
-            EventScheduler scheduler)
-    {
-        if (this.getPosition().adjacent(target.getPosition())) {
-            world.removeEntity(target);
-            scheduler.unscheduleAllEvents(target);
-            return true;
-        }
-        else {
-            Point nextPos = this.nextPosition(world, target.getPosition());
-
-            if (!this.getPosition().equals(nextPos)) {
-                Optional<Entity> occupant = world.getOccupant(nextPos);
-                if (occupant.isPresent()) {
-                    scheduler.unscheduleAllEvents(occupant.get());
-                }
-
-                world.moveEntity(this, nextPos);
-            }
-            return false;
-        }
+    public void moveToHelper(WorldModel world,
+                             Entity target,
+                             EventScheduler scheduler){
+        world.removeEntity(target);
+        scheduler.unscheduleAllEvents(target);
     }
 
+/*
+     protected void nextPositionHelper(WorldModel world, Point destPos, int horiz, Point newPos) {
+         Optional<Entity> occupant = world.getOccupant(newPos);
+
+
+         if (horiz == 0 || (occupant.isPresent() && !(occupant.get() instanceof Ore)))
+         {
+             int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
+             newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
+             occupant = world.getOccupant(newPos);
+
+             if (vert == 0 || (occupant.isPresent() && !(occupant.get() instanceof Ore)))
+             {
+                 newPos = this.getPosition();
+             }
+         }
+    }
+
+ */
 
 
     public Point nextPosition(
