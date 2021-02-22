@@ -64,12 +64,4 @@ public class MinerFull extends Transformable {
     }
 
 
-
-
-
-
-
-
-
-
 }

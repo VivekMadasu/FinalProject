@@ -43,22 +43,15 @@ public abstract class Movable extends AnimateEntity {
 
     public abstract void moveToHelper(WorldModel world, Entity target, EventScheduler scheduler);
 
-
-    protected abstract Point nextPosition(WorldModel world, Point destPos);
-
-    /*
     protected Point nextPosition(
             WorldModel world, Point destPos){
         int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
         Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
 
-        nextPositionHelper(world, destPos, horiz, newPos);
+        newPos = _nextPositionHelper(world, destPos, horiz, newPos);
 
         return newPos;
     }
 
-    protected abstract void nextPositionHelper(WorldModel world, Point destPos, int horiz, Point newPos);
-
-     */
-
+    protected abstract Point _nextPositionHelper(WorldModel world, Point destPos, int horiz, Point newPos);
 }

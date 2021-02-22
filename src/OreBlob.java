@@ -61,10 +61,10 @@ public class OreBlob extends Movable {
         scheduler.unscheduleAllEvents(target);
     }
 
-/*
-     protected void nextPositionHelper(WorldModel world, Point destPos, int horiz, Point newPos) {
-         Optional<Entity> occupant = world.getOccupant(newPos);
 
+     protected Point _nextPositionHelper(WorldModel world, Point destPos, int horiz, Point newPos) {
+
+        Optional<Entity> occupant = world.getOccupant(newPos);
 
          if (horiz == 0 || (occupant.isPresent() && !(occupant.get() instanceof Ore)))
          {
@@ -77,35 +77,8 @@ public class OreBlob extends Movable {
                  newPos = this.getPosition();
              }
          }
+
+         return newPos;
     }
-
- */
-
-
-    public Point nextPosition(
-            WorldModel world, Point destPos)
-    {
-        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
-        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
-
-        Optional<Entity> occupant = world.getOccupant(newPos);
-
-
-        if (horiz == 0 || (occupant.isPresent() && !(occupant.get() instanceof Ore)))
-        {
-            int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
-            newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
-            occupant = world.getOccupant(newPos);
-
-            if (vert == 0 || (occupant.isPresent() && !(occupant.get() instanceof Ore)))
-            {
-                newPos = this.getPosition();
-            }
-        }
-
-        return newPos;
-    }
-
-
 
 }
