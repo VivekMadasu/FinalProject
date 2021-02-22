@@ -5,6 +5,7 @@ import java.util.List;
 public abstract class AnimateEntity extends ActiveEntity {
 
    private int animationPeriod;
+   private int imageIndex = 0;
 
 
    public AnimateEntity(String id,
@@ -22,6 +23,13 @@ public abstract class AnimateEntity extends ActiveEntity {
         return this.animationPeriod;
     }
 
+    protected int getImageIndex() {
+        return imageIndex;
+    }
+
+    protected void setImageIndex(int imageIndex) {
+        this.imageIndex = imageIndex;
+    }
 
     protected void nextImage() {
         this.setImageIndex((this.getImageIndex()+ 1) % this.getImages().size());
