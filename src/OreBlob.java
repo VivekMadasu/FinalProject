@@ -54,7 +54,7 @@ public class OreBlob extends Movable {
     }
 
 
-    public void moveToHelper(WorldModel world,
+    public void _moveToHelper(WorldModel world,
                              Entity target,
                              EventScheduler scheduler){
         world.removeEntity(target);

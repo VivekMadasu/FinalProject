@@ -13,17 +13,17 @@ public abstract class Movable extends AnimateEntity {
         super(id, position, images, actionPeriod, animationPeriod);
     }
 
-    public int _scheduleActionsHelper() {
+    protected int _scheduleActionsHelper() {
         return 0;
     }
 
-    public boolean moveTo(
+    protected boolean moveTo(
             WorldModel world,
             Entity target,
             EventScheduler scheduler)
     {
         if (this.getPosition().adjacent(target.getPosition())) {
-            moveToHelper(world, target, scheduler);
+            _moveToHelper(world, target, scheduler);
             return true;
         }
         else {
@@ -41,7 +41,7 @@ public abstract class Movable extends AnimateEntity {
         }
     }
 
-    public abstract void moveToHelper(WorldModel world, Entity target, EventScheduler scheduler);
+    protected abstract void _moveToHelper(WorldModel world, Entity target, EventScheduler scheduler);
 
     protected Point nextPosition(
             WorldModel world, Point destPos){

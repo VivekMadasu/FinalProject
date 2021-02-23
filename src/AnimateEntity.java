@@ -2,7 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public abstract class AnimateEntity extends ActiveEntity {
+public abstract class AnimateEntity extends ActiveEntity implements Active, Animate{
 
    private int animationPeriod;
    private int imageIndex = 0;
@@ -18,7 +18,6 @@ public abstract class AnimateEntity extends ActiveEntity {
 
    }
 
-
     protected int getAnimationPeriod() {
         return this.animationPeriod;
     }
@@ -31,11 +30,11 @@ public abstract class AnimateEntity extends ActiveEntity {
         this.imageIndex = imageIndex;
     }
 
-    protected void nextImage() {
+    public void nextImage() {
         this.setImageIndex((this.getImageIndex()+ 1) % this.getImages().size());
     }
 
-    protected void scheduleActions(
+    public void scheduleActions(
             EventScheduler scheduler,
             WorldModel world,
             ImageStore imageStore)

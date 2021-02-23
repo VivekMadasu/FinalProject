@@ -58,7 +58,7 @@ public class MinerFull extends Transformable {
     }
 
 
-    public void moveToHelper(WorldModel world,
+    public void _moveToHelper(WorldModel world,
                              Entity target,
                              EventScheduler scheduler){
     }

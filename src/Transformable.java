@@ -33,7 +33,7 @@ public abstract class Transformable extends Movable {
         this.resourceCount = resourceCount;
     }
 
-    public void finishTransform(
+    protected void finishTransform(
             Transformable miner,
             WorldModel world,
             EventScheduler scheduler,

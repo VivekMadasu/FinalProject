@@ -2,7 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public abstract class ActiveEntity extends Entity{
+public abstract class ActiveEntity extends Entity implements Active{
 
     private int actionPeriod;
 
@@ -20,11 +20,11 @@ public abstract class ActiveEntity extends Entity{
         return actionPeriod;
     }
 
-    protected abstract void executeActivity(WorldModel world,
+    public abstract void executeActivity(WorldModel world,
                                          ImageStore imageStore,
                                          EventScheduler scheduler);
 
-    protected void scheduleActions(
+    public void scheduleActions(
             EventScheduler scheduler,
             WorldModel world,
             ImageStore imageStore)
