@@ -2,6 +2,8 @@ import processing.core.PImage;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 
 public class OreBlob extends Movable {
 
@@ -61,8 +63,8 @@ public class OreBlob extends Movable {
         scheduler.unscheduleAllEvents(target);
     }
 
-
-     protected Point nextPosition(WorldModel world, Point destPos) {
+/*
+     protected Point nextPositiono(WorldModel world, Point destPos) {
 
          int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
          Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
@@ -86,6 +88,45 @@ public class OreBlob extends Movable {
          }
 
          return newPos;
+    }
+
+ */
+
+    protected Point nextPosition(WorldModel world, Point destPos) {
+
+        List<Point> points;
+
+        Point pos = this.getPosition();
+
+        Predicate<Point> canPassThrough = p ->  withinBounds(p, world.getNumRows(), world.getNumCols()) &&
+                ( !world.getOccupant(p).isPresent() ||
+                        world.getOccupant(p).isPresent() && !(world.getOccupant(p).get() instanceof Ore)
+                );
+//        Predicate<Point> canPassThrough = p ->  withinBounds(p, world);
+        BiPredicate<Point, Point> withinReach = (p1, p2) -> neighbors(p1,p2);
+        PathingStrategy strategy = new SingleStepPathingStrategy();
+
+        points = strategy.computePath(pos, destPos,
+                canPassThrough,
+                withinReach,
+                // p ->  withinBounds(p, grid) && grid[p.y][p.x] != GridValues.OBSTACLE,
+                // (p1, p2) -> neighbors(p1,p2),
+                PathingStrategy.CARDINAL_NEIGHBORS);
+        //DIAGONAL_NEIGHBORS);
+        //DIAGONAL_CARDINAL_NEIGHBORS);
+
+//        if (points.size() == 0)
+//        {
+//            System.out.println("No path found");
+//            return false;
+//        }
+
+        if (points.size() != 0) {
+            pos = points.get(0);
+            // path.add(pos);
+        }
+
+        return pos;
     }
 
 }

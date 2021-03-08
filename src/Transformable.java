@@ -55,7 +55,7 @@ public abstract class Transformable extends Movable {
             EventScheduler scheduler,
             ImageStore imageStore);
 
-
+/*
     protected Point nextPositiono(WorldModel world, Point destPos) {
 
         int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
@@ -77,15 +77,17 @@ public abstract class Transformable extends Movable {
     }
 
 
+ */
+
     protected Point nextPosition(WorldModel world, Point destPos) {
 
         List<Point> points;
 
         Point pos = this.getPosition();
 
-//        Predicate<Point> canPassThrough = p ->  withinBounds(p, world.getNumRows(), world.getNumCols()) &&
-//                                            !world.isOccupied(p);
-        Predicate<Point> canPassThrough = p ->  withinBounds(p, world);
+        Predicate<Point> canPassThrough = p ->  withinBounds(p, world.getNumRows(), world.getNumCols()) &&
+                                            !world.isOccupied(p);
+//        Predicate<Point> canPassThrough = p ->  withinBounds(p, world);
         BiPredicate<Point, Point> withinReach = (p1, p2) -> neighbors(p1,p2);
         PathingStrategy strategy = new SingleStepPathingStrategy();
 

@@ -56,32 +56,24 @@ public abstract class Movable extends AnimateEntity {
     protected abstract Point nextPosition(WorldModel world, Point destPos);
 
 
-//    private static boolean withinBounds(Point p, GridValues[][] grid)
-//    {
-//        return p.y >= 0 && p.y < grid.length &&
-//                p.x >= 0 && p.x < grid[0].length;
-//    }
-//
-
-
-//    protected static boolean withinBounds(Point p, int numRows, int numCols)
-//    {
-//        return p.getY() >= 0 && p.getY() < numRows &&
-//                p.getX() >= 0 && p.getX() < numCols;
-//    }
-
-
-    protected static boolean withinBounds(Point p, WorldModel world)
+    protected static boolean withinBounds(Point p, int numRows, int numCols)
     {
-        //       p ->  withinBounds(p, world.getNumRows(), world.getNumCols()) &&
-        //                                            !world.isOccupied(p);
-        boolean w = p.getY() >= 0 && p.getY() < world.getNumRows() &&
-                p.getX() >= 0 && p.getX() < world.getNumCols();
-        boolean o = world.isOccupied(p);
-
-         boolean r = w && !o;
-         return  r;
+        return p.getY() >= 0 && p.getY() < numRows &&
+                p.getX() >= 0 && p.getX() < numCols;
     }
+
+//
+//    protected static boolean withinBounds(Point p, WorldModel world)
+//    {
+//        //       p ->  withinBounds(p, world.getNumRows(), world.getNumCols()) &&
+//        //                                            !world.isOccupied(p);
+//        boolean w = p.getY() >= 0 && p.getY() < world.getNumRows() &&
+//                p.getX() >= 0 && p.getX() < world.getNumCols();
+//        boolean o = world.isOccupied(p);
+//
+//         boolean r = w && !o;
+//         return  r;
+//    }
 
     protected static boolean neighbors(Point p1, Point p2)
     {

@@ -19,6 +19,7 @@ class SingleStepPathingStrategy
        * on each call, the caller will need to check if the destination
        * has been reached.
        */
+      /*
       Stream<Point> pn = potentialNeighbors.apply(start);
       // Object[] objects = pn.toArray();
       // List<Point> pl = pn.collect(Collectors.toList());
@@ -33,36 +34,22 @@ class SingleStepPathingStrategy
                       && !pt.equals(end)
                       && Math.abs(end.getX() - pt.getX()) <= Math.abs(end.getX() - start.getX())
                       && Math.abs(end.getY() - pt.getY()) <= Math.abs(end.getY() - start.getY()));
-//      Stream<Point> pncc = pnc.filter(pt ->
-//              !pt.equals(start)
-//                      && !pt.equals(end)
-//      );
-
-
-
 
       // Stream<Point> pnccone = pncc.limit(1);
       // List<Point> lp = pnccone.collect(Collectors.toList());
       List<Point> lp = pncc.collect(Collectors.toList());
-      if (lp.size() != 0){
-         List<Point> lpone = lp.subList(0,1);
-         return lpone;
-      }
-      else {
-         List<Point> lpone = lp;
-         return lpone;
-      }
+      List<Point> lpone = lp.subList(0,1);
+      return lpone;
+       */
+      Predicate<Point> isTowardsEnd = pt -> !pt.equals(start)
+                      && !pt.equals(end)
+                      && Math.abs(end.getX() - pt.getX()) <= Math.abs(end.getX() - start.getX())
+                      && Math.abs(end.getY() - pt.getY()) <= Math.abs(end.getY() - start.getY());
 
-
-//
-//      return potentialNeighbors.apply(start)
-//         .filter(canPassThrough)
-//         .filter(pt ->
-//            !pt.equals(start)
-//            && !pt.equals(end)
-//            && Math.abs(end.x - pt.x) <= Math.abs(end.x - start.x)
-//            && Math.abs(end.y - pt.y) <= Math.abs(end.y - start.y))
-//         .limit(1)
-//         .collect(Collectors.toList());
+      return potentialNeighbors.apply(start)
+         .filter(canPassThrough)
+         .filter(isTowardsEnd)
+         .limit(1)
+         .collect(Collectors.toList());
    }
 }
