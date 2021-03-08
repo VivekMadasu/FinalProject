@@ -42,16 +42,53 @@ public abstract class Movable extends AnimateEntity {
     }
 
     protected abstract void _moveToHelper(WorldModel world, Entity target, EventScheduler scheduler);
+//
+//    protected Point nextPosition(
+//            WorldModel world, Point destPos){
+//        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
+//        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
+//
+//        newPos = _nextPositionHelper(world, destPos, horiz, newPos);
+//
+//        return newPos;
+//    }
+//
+    protected abstract Point nextPosition(WorldModel world, Point destPos);
 
-    protected Point nextPosition(
-            WorldModel world, Point destPos){
-        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
-        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
 
-        newPos = _nextPositionHelper(world, destPos, horiz, newPos);
+//    private static boolean withinBounds(Point p, GridValues[][] grid)
+//    {
+//        return p.y >= 0 && p.y < grid.length &&
+//                p.x >= 0 && p.x < grid[0].length;
+//    }
+//
 
-        return newPos;
+
+//    protected static boolean withinBounds(Point p, int numRows, int numCols)
+//    {
+//        return p.getY() >= 0 && p.getY() < numRows &&
+//                p.getX() >= 0 && p.getX() < numCols;
+//    }
+
+
+    protected static boolean withinBounds(Point p, WorldModel world)
+    {
+        //       p ->  withinBounds(p, world.getNumRows(), world.getNumCols()) &&
+        //                                            !world.isOccupied(p);
+        boolean w = p.getY() >= 0 && p.getY() < world.getNumRows() &&
+                p.getX() >= 0 && p.getX() < world.getNumCols();
+        boolean o = world.isOccupied(p);
+
+         boolean r = w && !o;
+         return  r;
     }
 
-    protected abstract Point _nextPositionHelper(WorldModel world, Point destPos, int horiz, Point newPos);
+    protected static boolean neighbors(Point p1, Point p2)
+    {
+        return p1.getX()+1 == p2.getX() && p1.getY() == p2.getY() ||
+                p1.getX()-1 == p2.getX() && p1.getY() == p2.getY() ||
+                p1.getX() == p2.getX() && p1.getY()+1 == p2.getY() ||
+                p1.getX() == p2.getX() && p1.getY()-1 == p2.getY();
+    }
+
 }

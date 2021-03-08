@@ -62,7 +62,14 @@ public class OreBlob extends Movable {
     }
 
 
-     protected Point _nextPositionHelper(WorldModel world, Point destPos, int horiz, Point newPos) {
+     protected Point nextPosition(WorldModel world, Point destPos) {
+
+         int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
+         Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
+//
+//         newPos = _nextPositionHelper(world, destPos, horiz, newPos);
+//
+//         return newPos;
 
         Optional<Entity> occupant = world.getOccupant(newPos);
 
