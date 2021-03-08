@@ -44,17 +44,6 @@ public abstract class Movable extends AnimateEntity {
     }
 
     protected abstract void _moveToHelper(WorldModel world, Entity target, EventScheduler scheduler);
-//
-//    protected Point nextPosition(
-//            WorldModel world, Point destPos){
-//        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
-//        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
-//
-//        newPos = _nextPositionHelper(world, destPos, horiz, newPos);
-//
-//        return newPos;
-//    }
-//
 
     protected Point nextPosition(WorldModel world, Point destPos) {
 
@@ -66,32 +55,21 @@ public abstract class Movable extends AnimateEntity {
                 ( !world.getOccupant(p).isPresent() ||
                         world.getOccupant(p).isPresent() && !(world.getOccupant(p).get() instanceof Ore)
                 );
-//        Predicate<Point> canPassThrough = p ->  withinBounds(p, world);
+
         BiPredicate<Point, Point> withinReach = (p1, p2) -> neighbors(p1,p2);
         PathingStrategy strategy = new SingleStepPathingStrategy();
 
-    points = strategy.computePath(pos, destPos,
+        points = strategy.computePath(pos, destPos,
             _canPassThroughHelper(world),
             withinReach,
-            // p ->  withinBounds(p, grid) && grid[p.y][p.x] != GridValues.OBSTACLE,
-            // (p1, p2) -> neighbors(p1,p2),
             PathingStrategy.CARDINAL_NEIGHBORS);
-    //DIAGONAL_NEIGHBORS);
-    //DIAGONAL_CARDINAL_NEIGHBORS);
 
-//        if (points.size() == 0)
-//        {
-//            System.out.println("No path found");
-//            return false;
-//        }
+        if (points.size() != 0) {
+            pos = points.get(0);
+        }
 
-    if (points.size() != 0) {
-        pos = points.get(0);
-        // path.add(pos);
+        return pos;
     }
-
-    return pos;
-}
 
     protected abstract Predicate<Point> _canPassThroughHelper(WorldModel world);
 
@@ -102,18 +80,6 @@ public abstract class Movable extends AnimateEntity {
                 p.getX() >= 0 && p.getX() < numCols;
     }
 
-//
-//    protected static boolean withinBounds(Point p, WorldModel world)
-//    {
-//        //       p ->  withinBounds(p, world.getNumRows(), world.getNumCols()) &&
-//        //                                            !world.isOccupied(p);
-//        boolean w = p.getY() >= 0 && p.getY() < world.getNumRows() &&
-//                p.getX() >= 0 && p.getX() < world.getNumCols();
-//        boolean o = world.isOccupied(p);
-//
-//         boolean r = w && !o;
-//         return  r;
-//    }
 
     protected static boolean neighbors(Point p1, Point p2)
     {

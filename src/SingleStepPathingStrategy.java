@@ -19,28 +19,7 @@ class SingleStepPathingStrategy
        * on each call, the caller will need to check if the destination
        * has been reached.
        */
-      /*
-      Stream<Point> pn = potentialNeighbors.apply(start);
-      // Object[] objects = pn.toArray();
-      // List<Point> pl = pn.collect(Collectors.toList());
-      // List<Point> pl = pn.collect(Collectors.toList());
-      Stream<Point> pnc = pn.filter(canPassThrough);
-      // List<Point> lppt = pnc.collect(Collectors.toList());
-      // List<Point> lppt = pnc.collect(Collectors.toList());
-      // Stream<Point> pncx = pnc.peek(e -> System.out.println("Filtered value: " + e));
-      // pnc.peek(e -> System.out.println("Filtered value: " + e));
-      Stream<Point> pncc = pnc.filter(pt ->
-              !pt.equals(start)
-                      && !pt.equals(end)
-                      && Math.abs(end.getX() - pt.getX()) <= Math.abs(end.getX() - start.getX())
-                      && Math.abs(end.getY() - pt.getY()) <= Math.abs(end.getY() - start.getY()));
 
-      // Stream<Point> pnccone = pncc.limit(1);
-      // List<Point> lp = pnccone.collect(Collectors.toList());
-      List<Point> lp = pncc.collect(Collectors.toList());
-      List<Point> lpone = lp.subList(0,1);
-      return lpone;
-       */
       Predicate<Point> isTowardsEnd = pt -> !pt.equals(start)
                       && !pt.equals(end)
                       && Math.abs(end.getX() - pt.getX()) <= Math.abs(end.getX() - start.getX())
