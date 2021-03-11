@@ -55,9 +55,10 @@ public abstract class Movable extends AnimateEntity {
                 ( !world.getOccupant(p).isPresent() ||
                         world.getOccupant(p).isPresent() && !(world.getOccupant(p).get() instanceof Ore)
                 );
-
-        BiPredicate<Point, Point> withinReach = (p1, p2) -> neighbors(p1,p2);
-        PathingStrategy strategy = new SingleStepPathingStrategy();
+        
+        BiPredicate<Point, Point> withinReach = (p1, p2) -> p1.adjacent(p2);
+        //PathingStrategy strategy = new SingleStepPathingStrategy();
+        PathingStrategy strategy = new AStarPathingStrategy();
 
         points = strategy.computePath(pos, destPos,
             _canPassThroughHelper(world),
@@ -78,15 +79,6 @@ public abstract class Movable extends AnimateEntity {
     {
         return p.getY() >= 0 && p.getY() < numRows &&
                 p.getX() >= 0 && p.getX() < numCols;
-    }
-
-
-    protected static boolean neighbors(Point p1, Point p2)
-    {
-        return p1.getX()+1 == p2.getX() && p1.getY() == p2.getY() ||
-                p1.getX()-1 == p2.getX() && p1.getY() == p2.getY() ||
-                p1.getX() == p2.getX() && p1.getY()+1 == p2.getY() ||
-                p1.getX() == p2.getX() && p1.getY()-1 == p2.getY();
     }
 
 }
