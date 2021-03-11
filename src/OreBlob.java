@@ -66,9 +66,8 @@ public class OreBlob extends Movable {
 
     protected Predicate<Point> _canPassThroughHelper(WorldModel world){
         Predicate<Point> canPassThrough = p ->  withinBounds(p, world.getNumRows(), world.getNumCols()) &&
-                ( !world.getOccupant(p).isPresent() ||
-                        world.getOccupant(p).isPresent() && !(world.getOccupant(p).get() instanceof Ore)
-                );
+        ( !world.getOccupant(p).isPresent() || world.getOccupant(p).get() instanceof Ore);
+
         return canPassThrough;
     }
 
