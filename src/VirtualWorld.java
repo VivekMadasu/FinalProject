@@ -35,6 +35,8 @@ public final class VirtualWorld extends PApplet
 
     private static double timeScale = 1.0;
 
+    public static final String OBSTACLE_KEY = "obstacle";
+
     private ImageStore imageStore;
     private WorldModel world;
     private WorldView view;
@@ -99,6 +101,38 @@ public final class VirtualWorld extends PApplet
             view.shiftView(dx, dy);
         }
     }
+    public void mousePressed() {
+        int xShift = view.getViewport().getCol();
+        int yShift = view.getViewport().getRow();
+        Point unshifted = mouseToPoint(mouseX, mouseY);
+        Point pressed = new Point(unshifted.getX()+xShift, unshifted.getY()+yShift);
+        if (!world.getOccupant(pressed).isPresent()){
+            world.addEntity(Factory.createObstacle("test", pressed,
+                    imageStore.getImageList(OBSTACLE_KEY)));
+            int range = 3;
+            for (int i = -1*range; i <= range; i++) {
+                for (int j = -1*range; j <= range; j++) {
+                    Point p = new Point(pressed.getX() + i, pressed.getY() + j);
+                    if (world.getOccupant(p).isPresent() && world.getOccupant(p).get() instanceof OreBlob){
+                        world.removeEntityAt(p);
+                        world.addEntity(Factory.createVein("test", p,
+                                2,
+                                imageStore.getImageList("vein")));
+                    }
+                }
+            }
+        }
+        else if (world.getOccupant(pressed).get() instanceof Obstacle)
+            world.removeEntityAt(pressed);
+        redraw();
+
+    }
+
+    private Point mouseToPoint(int x, int y)
+    {
+        return new Point(mouseX/TILE_WIDTH, mouseY/TILE_HEIGHT);
+    }
+
 
     public static Background createDefaultBackground(ImageStore imageStore) {
         return new Background(DEFAULT_IMAGE_NAME,
