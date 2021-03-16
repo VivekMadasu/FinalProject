@@ -107,8 +107,8 @@ public final class VirtualWorld extends PApplet
         Point unshifted = mouseToPoint(mouseX, mouseY);
         Point pressed = new Point(unshifted.getX()+xShift, unshifted.getY()+yShift);
         if (!world.getOccupant(pressed).isPresent()){
-            world.addEntity(Factory.createObstacle("test", pressed,
-                    imageStore.getImageList(OBSTACLE_KEY)));
+            world.addEntity(Factory.createVirus("test", pressed,
+                    imageStore.getImageList("virus")));
             int range = 3;
             for (int i = -1*range; i <= range; i++) {
                 for (int j = -1*range; j <= range; j++) {
@@ -122,7 +122,7 @@ public final class VirtualWorld extends PApplet
                 }
             }
         }
-        else if (world.getOccupant(pressed).get() instanceof Obstacle)
+        else if (world.getOccupant(pressed).get() instanceof Virus)
             world.removeEntityAt(pressed);
         redraw();
 
