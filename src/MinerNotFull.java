@@ -62,6 +62,24 @@ public class MinerNotFull extends Transformable{
     }
 
 
+    public void transformToZombie(
+            WorldModel world,
+            EventScheduler scheduler,
+            ImageStore imageStore)
+    {
+        MinerZombie minerZombie = Factory.createMinerZombie(this.getId(),
+                this.getPosition(), MinerZombie.ZOMBIE_ACTION_PERIOD,
+                this.getAnimationPeriod(),
+                imageStore.getImageList(VirtualWorld.ZOMBIE_KEY));
+
+        super.finishTransform(
+                minerZombie,
+                world,
+                scheduler,
+                imageStore);
+
+    }
+
     public void _moveToHelper(WorldModel world,
                              Entity target,
                              EventScheduler scheduler){

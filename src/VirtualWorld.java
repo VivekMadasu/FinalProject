@@ -1,6 +1,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import processing.core.*;
 
@@ -41,6 +47,12 @@ public final class VirtualWorld extends PApplet
     private EventScheduler scheduler;
 
     private long nextTime;
+
+    private int mouseClicks = 0;
+    private Point mousePoint;
+    private static final String PLAGUE_IMAGE_NAME = "plaguebg";
+    public static final String ZOMBIE_KEY = "zombie";
+
 
     public void settings() {
         size(VIEW_WIDTH, VIEW_HEIGHT);
@@ -98,6 +110,98 @@ public final class VirtualWorld extends PApplet
             }
             view.shiftView(dx, dy);
         }
+    }
+
+    private Point mouseToPoint(int x, int y)
+    {
+        return new Point(mouseX/TILE_WIDTH, mouseY/TILE_HEIGHT);
+    }
+
+    public void mousePressed()
+    {
+
+        int xShift = view.getViewport().getCol();
+        int yShift = view.getViewport().getRow();
+        Point unShifted = mouseToPoint(mouseX, mouseY);
+        mousePoint = new Point(unShifted.getX() + xShift, unShifted.getY() + yShift);
+
+        mouseClicks += 1;
+        if (mouseClicks == 1) {
+            changeBackground();
+            createPlagueDoctor();
+            infectMiner();
+        }
+        else if (mouseClicks == 2) {
+            // createPlagueDoctor();
+            changeBackground();
+            infectMiner();
+        } else {
+            changeBackground();
+            infectMiner();
+        }
+
+        redraw();
+
+    }
+
+    private void infectMiner() {
+
+        Optional<Entity> zombieMinerTarget =
+                world.findNearest(mousePoint, MinerNotFull.class);
+        // long nextPeriod = this.getActionPeriod();
+
+        if (zombieMinerTarget.isPresent()) {
+
+            Point tgtPos = zombieMinerTarget.get().getPosition();
+
+                if (world.getOccupant(zombieMinerTarget.get().getPosition()).isPresent()) {
+
+                    MinerNotFull miner = (MinerNotFull) (world.getOccupant(zombieMinerTarget.get().getPosition()).get());
+                    miner.setSavedActionPeriod(miner.getSavedActionPeriod());
+                    miner.transformToZombie(world, scheduler, imageStore);
+                }
+            }
+    }
+
+
+    private static final Function<Point, Stream<Point>> DIAGONAL_CARDINAL_NEIGHBORS =
+            point ->
+                    Stream.<Point>builder()
+                            .add(new Point(point.getX() - 1, point.getY() - 1))
+                            .add(new Point(point.getX() + 1, point.getY() + 1))
+                            .add(new Point(point.getX() - 1, point.getY() + 1))
+                            .add(new Point(point.getX() + 1, point.getY() - 1))
+                            .add(new Point(point.getX(), point.getY() - 1))
+                            .add(new Point(point.getX(), point.getY() + 1))
+                            .add(new Point(point.getX() - 1, point.getY()))
+                            .add(new Point(point.getX() + 1, point.getY()))
+                            .build();
+
+    Consumer<Point> setCellBackground =
+            p -> world.setBackgroundCell(p, new Background(PLAGUE_IMAGE_NAME, imageStore.getImageList(PLAGUE_IMAGE_NAME)));
+
+    private void changeBackground() {
+
+        List<Point> neighbors = DIAGONAL_CARDINAL_NEIGHBORS.apply(mousePoint)
+                .filter(p->world.withinBounds(p))
+                .collect(Collectors.toList());
+        neighbors.stream().forEach(setCellBackground);
+
+    }
+
+    private void createPlagueDoctor() {
+
+        Optional<Point> openPt = world.findOpenAround(mousePoint);
+
+        if (openPt.isPresent()) {
+            PlagueDoctor plagueDoctor = Factory.createPlagueDoctor(PlagueDoctor.PLAGUEDOCTOR_KEY + mouseClicks, openPt.get(),
+                    PlagueDoctor.PLAGUEDOCTOR_ACTION_PERIOD,
+                    PlagueDoctor.PLAGUEDOCTOR_ANIMATION_PERIOD,
+                    imageStore.getImageList(PlagueDoctor.PLAGUEDOCTOR_KEY));
+            world.addEntity(plagueDoctor);
+            plagueDoctor.scheduleActions(scheduler, world, imageStore);
+        }
+
     }
 
     public static Background createDefaultBackground(ImageStore imageStore) {

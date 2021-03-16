@@ -29,3 +29,32 @@ rocks images/rock.bmp
 dirt images/dirt.bmp
 vein images/vein.bmp
 background_default images/none.bmp
+zombie images/zombie1.bmp 255 255 255 0
+zombie images/zombie2.bmp 255 255 255 0
+zombie images/zombie3.bmp 255 255 255 0
+zombie images/zombie4.bmp 255 255 255 0
+zombie images/zombie5.bmp 255 255 255 0
+zombie images/zombie6.bmp 255 255 255 0
+zombie images/zombie7.bmp 255 255 255 0
+zombie images/zombie8.bmp 255 255 255 0
+zombie images/zombie9.bmp 255 255 255 0
+zombie images/zombie10.bmp 255 255 255 0
+zombie images/zombie11.bmp 255 255 255 0
+plaguedoctor images/plaguedoctor1.bmp 255 255 255 0
+plaguedoctor images/plaguedoctor2.bmp 255 255 255 0
+plaguedoctor images/plaguedoctor3.bmp 255 255 255 0
+plaguedoctor images/plaguedoctor4.bmp 255 255 255 0
+plaguedoctor images/plaguedoctor5.bmp 255 255 255 0
+plaguedoctor images/plaguedoctor6.bmp 255 255 255 0
+plaguedoctor images/plaguedoctor7.bmp 255 255 255 0
+plaguedoctor images/plaguedoctor8.bmp 255 255 255 0
+plaguedoctor images/plaguedoctor9.bmp 255 255 255 0
+plaguedoctor images/plaguedoctor10.bmp 255 255 255 0
+plaguedoctor images/plaguedoctor11.bmp 255 255 255 0
+plaguedoctor images/plaguedoctor12.bmp 255 255 255 0
+plaguedoctor images/plaguedoctor13.bmp 255 255 255 0
+plaguedoctor images/plaguedoctor14.bmp 255 255 255 0
+plaguedoctor images/plaguedoctor15.bmp 255 255 255 0
+plaguedoctor images/plaguedoctor16.bmp 255 255 255 0
+plaguedoctor images/plaguedoctor17.bmp 255 255 255 0
+plaguebg images/corona.bmp 255 255 255 0

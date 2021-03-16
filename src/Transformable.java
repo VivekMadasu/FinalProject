@@ -9,6 +9,9 @@ public abstract class Transformable extends Movable {
     private final int resourceLimit;
     private int resourceCount;
 
+    private int savedActionPeriod;
+
+
     public Transformable(
             String id,
             Point position,
@@ -21,6 +24,7 @@ public abstract class Transformable extends Movable {
 
         this.resourceCount = resourceCount;
         this.resourceLimit = resourceLimit;
+
     }
 
     protected int getResourceLimit() {
@@ -34,6 +38,15 @@ public abstract class Transformable extends Movable {
     protected void setResourceCount(int resourceCount) {
         this.resourceCount = resourceCount;
     }
+
+    public int getSavedActionPeriod() {
+        return savedActionPeriod;
+    }
+
+    public void setSavedActionPeriod(int savedActionPeriod) {
+        this.savedActionPeriod = savedActionPeriod;
+    }
+
 
     protected void finishTransform(
             Transformable miner,

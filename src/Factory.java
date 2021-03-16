@@ -82,6 +82,26 @@ public class Factory {
     }
 
 
+    public static PlagueDoctor createPlagueDoctor(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            List<PImage> images)
+    {
+        return new PlagueDoctor(id, position, images, actionPeriod, animationPeriod);
+    }
+
+
+    public static MinerZombie createMinerZombie(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            List<PImage> images)
+    {
+        return new MinerZombie(id, position, images, actionPeriod, animationPeriod);
+    }
 
 
 }

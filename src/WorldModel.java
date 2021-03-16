@@ -113,6 +113,7 @@ public final class WorldModel
         }
 
         return pos.nearestEntity(ofType);
+
     }
 
     /*
@@ -137,6 +138,7 @@ public final class WorldModel
     }
 
     public void removeEntity(Entity entity) {
+
         removeEntityAt(entity.getPosition());
     }
 
@@ -184,6 +186,7 @@ public final class WorldModel
 
     public void setOccupancyCell(Point pos, Entity entity)
     {
+
         this.occupancy[pos.getY()][pos.getX()] = entity;
     }
 
