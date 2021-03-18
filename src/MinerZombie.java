@@ -6,7 +6,9 @@ import java.util.Optional;
 
 public class MinerZombie extends Transformable {
 
-    public static final int ZOMBIE_ACTION_PERIOD = 1000;
+    public static final String ZOMBIE_KEY = "zombie";
+    public static final int ZOMBIE_ACTION_PERIOD = 777;
+
     public MinerZombie(
             String id,
             Point position,
@@ -23,19 +25,23 @@ public class MinerZombie extends Transformable {
             ImageStore imageStore,
             EventScheduler scheduler)
     {
-        Optional<Entity> fullTarget =
+        Optional<Entity> zombieMinerTarget =
                 world.findNearest(this.getPosition(), MinerNotFull.class);
 
-        if (fullTarget.isPresent() && this.moveTo(world,
-                fullTarget.get(), scheduler))
+        if (zombieMinerTarget.isPresent() && this.moveTo(world,
+                zombieMinerTarget.get(), scheduler))
         {
+            // make the miner a new zombie
+            MinerNotFull miner = (MinerNotFull) (world.getOccupant(zombieMinerTarget.get().getPosition()).get());
+            miner.setSavedActionPeriod(miner.getSavedActionPeriod());
+            miner.transformToZombie(world, scheduler, imageStore);
             // this.transform(world, scheduler, imageStore);
         }
-        else {
-            scheduler.scheduleEvent(this,
+
+        scheduler.scheduleEvent(this,
                     Factory.createActivityAction(this, world, imageStore),
                     this.getActionPeriod());
-        }
+
     }
 
 

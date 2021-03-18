@@ -23,15 +23,11 @@ quake images/quake4.bmp 255 255 255 0
 quake images/quake5.bmp 255 255 255 0
 quake images/quake6.bmp 255 255 255 0
 ore images/ore.bmp 201 26 26 0
-virus images/virus1.bmp 0 255 255 0
-virus images/virus2.bmp 0 255 255 0
-
 obstacle images/obstacle.bmp
 grass images/grass.bmp
 rocks images/rock.bmp
 dirt images/dirt.bmp
 vein images/vein.bmp
-
 background_default images/none.bmp
 zombie images/zombie1.bmp 255 255 255 0
 zombie images/zombie2.bmp 255 255 255 0
@@ -61,4 +57,5 @@ plaguedoctor images/plaguedoctor14.bmp 255 255 255 0
 plaguedoctor images/plaguedoctor15.bmp 255 255 255 0
 plaguedoctor images/plaguedoctor16.bmp 255 255 255 0
 plaguedoctor images/plaguedoctor17.bmp 255 255 255 0
-plaguebg images/corona.bmp 255 255 255 0
+plaguebg images/plague.bmp 255 255 255 0
+deadgrass images/deadgrass.bmp
