@@ -113,6 +113,19 @@ public final class VirtualWorld extends PApplet
             view.shiftView(dx, dy);
         }
     }
+
+    private boolean checkForMiner(Point p) {
+        return world.getOccupant(p).isPresent() &&
+                (world.getOccupant(p).get() instanceof MinerFull ||
+                        world.getOccupant(p).get() instanceof MinerNotFull);
+    }
+    private Point mouseToPoint(int x, int y)
+    {
+        return new Point(mouseX/TILE_WIDTH, mouseY/TILE_HEIGHT);
+    }
+
+
+
     public void mousePressed() {
         int xShift = view.getViewport().getCol();
         int yShift = view.getViewport().getRow();
@@ -125,55 +138,31 @@ public final class VirtualWorld extends PApplet
             for (int i = -1*range; i <= range; i++) {
                 for (int j = -1*range; j <= range; j++) {
                     Point p = new Point(pressed.getX() + i, pressed.getY() + j);
-                    if (world.getOccupant(p).isPresent() && world.getOccupant(p).get() instanceof OreBlob){
-                        world.removeEntityAt(p);
-                        world.addEntity(Factory.createVein("test", p,
-                                2,
-                                imageStore.getImageList("vein")));
+                    if (world.withinBounds(p)) {
+                        world.setBackgroundCell(p, new Background("darkGrass", imageStore.getImageList("darkGrass")));
+                        if (checkForMiner(p)) {
+                            world.removeEntityAt(p);
+                            world.addEntity(Factory.createVein("test", p,
+                                    2,
+                                    imageStore.getImageList("vein")));
+                        }
                     }
                 }
             }
         }
-        else if (world.getOccupant(pressed).get() instanceof Virus)
+        else if (world.getOccupant(pressed).get() instanceof Virus){
             world.removeEntityAt(pressed);
-        redraw();
+            int range = 3;
 
-    }
-
-    private Point mouseToPoint(int x, int y)
-    {
-        return new Point(mouseX/TILE_WIDTH, mouseY/TILE_HEIGHT);
-    }
-
-
-    private Point mouseToPoint(int x, int y)
-    {
-        return new Point(mouseX/TILE_WIDTH, mouseY/TILE_HEIGHT);
-    }
-
-    public void mousePressed()
-    {
-
-        int xShift = view.getViewport().getCol();
-        int yShift = view.getViewport().getRow();
-        Point unShifted = mouseToPoint(mouseX, mouseY);
-        mousePoint = new Point(unShifted.getX() + xShift, unShifted.getY() + yShift);
-
-        mouseClicks += 1;
-        if (mouseClicks == 1) {
-            changeBackground();
-            createPlagueDoctor();
-            infectMiner();
+            for (int i = -1*range; i <= range; i++) {
+                for (int j = -1*range; j <= range; j++) {
+                    Point p = new Point(pressed.getX() + i, pressed.getY() + j);
+                    if (world.withinBounds(p)) {
+                        world.setBackgroundCell(p, new Background("grass", imageStore.getImageList("grass")));
+                    }
+                }
+            }
         }
-        else if (mouseClicks == 2) {
-            // createPlagueDoctor();
-            changeBackground();
-            infectMiner();
-        } else {
-            changeBackground();
-            infectMiner();
-        }
-
         redraw();
 
     }
