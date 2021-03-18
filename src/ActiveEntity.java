@@ -20,11 +20,6 @@ public abstract class ActiveEntity extends Entity implements Active{
         return actionPeriod;
     }
 
-
-    public void setActionPeriod(int actionPeriod) {
-        this.actionPeriod = actionPeriod;
-    }
-
     public abstract void executeActivity(WorldModel world,
                                          ImageStore imageStore,
                                          EventScheduler scheduler);

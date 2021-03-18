@@ -70,7 +70,7 @@ public class MinerNotFull extends Transformable{
         MinerZombie minerZombie = Factory.createMinerZombie(this.getId(),
                 this.getPosition(), MinerZombie.ZOMBIE_ACTION_PERIOD,
                 this.getAnimationPeriod(),
-                imageStore.getImageList(VirtualWorld.ZOMBIE_KEY));
+                imageStore.getImageList(MinerZombie.ZOMBIE_KEY));
 
         super.finishTransform(
                 minerZombie,

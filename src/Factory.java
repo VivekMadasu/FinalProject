@@ -34,11 +34,6 @@ public class Factory {
     {
         return new Obstacle(id, position, images);
     }
-    public static Entity createVirus(
-            String id, Point position, List<PImage> images)
-    {
-        return new Virus(id, position, images);
-    }
 
     public static Ore createOre(
             String id, Point position, int actionPeriod, List<PImage> images)

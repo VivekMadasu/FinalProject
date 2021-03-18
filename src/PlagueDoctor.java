@@ -57,11 +57,6 @@ public class PlagueDoctor extends Movable {
     public void _moveToHelper(WorldModel world,
                              Entity target,
                              EventScheduler scheduler){
-        // world.removeEntity(target);
-        // scheduler.unscheduleAllEvents(target);
-
-        // TBD
-
     }
 
 
